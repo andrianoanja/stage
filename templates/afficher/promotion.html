@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'message.html' %}
+<div class="col-sm-12">
+    <div class="text-center">
+        <h1 class="text-success"> Liste Promotions</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card-body">
+   
+    <a href="" class="btn btn-danger">Telecharger PDF<i class="fa fa-download"></i></a>
+   
+    </div>
+    </div>
+    <form action="" class="col-md-6">
+        <div class="card-body row  ">
+            <div class="col">
+               <input type="serch" class="form-control form-control-borderless" name="serch" >
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary"> <i class="fa fa-search"></i></button>
+        </div>
+        </div>
+    </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr id="tete">
+                <th>Code  classe</th>
+                <th>Classe</th>
+                <th>Actions</th>
+            </tr>
+            {% for x in promotions %}
+            <tr>
+                <td>{{x.codeC}}</td>
+                <td>{{x.classe}}</td>
+                <td>
+                    <div class="d-flex justify-content-around">
+                        <a class="save btn btn-warning" href=""> <i class="fa fa-eye"></i> Voir</a>
+                        <a class="save btn btn-info" href=""> <i class="fa fa-edit"></i>
+                            Modifier</a>
+                       
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-3 offset-md-4">
+            <ul class="pagination">
+                {% if promotions.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ promotions.previous_page_number }}">Precedent</a>
+                </li>
+                {% endif %}
+                <li class="page-item active">
+                    <a class="page-link" href="?page={{ promotions.number }}">{{ promotions.number }}</a>
+                </li>
+
+                {% if promotions.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ promotions.next_page_number }}">Suivant</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

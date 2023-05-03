@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <div class="text-center">
+        <h1 class="text-danger">Ajouter Etudiant Avec Matricule</h1>
+    </div><br>
+    <div class="col-md-8 offset-2">
+        <form action="{% url 'etu' %}">
+            <label for="">Matricule :</label>
+            <input type="number" class="form-control" name="matricule">
+            <label for="">Ancien classe:</label>
+            <input type="text" class="form-control" name="classeA">
+
+            <label for="">Nouveau classe:</label>
+            <select name="classe" id="" class="form-control">
+                <option >-----------------------------------------</option>
+                
+                {% for x in aa %}
+                   <option value="{{x.codePr}}">{{x.classe}}</option> 
+                {% endfor %}
+                    
+            </select>
+        
+
+            <br>
+            <div class="text-center">
+                <button type="submit" class="btn btn-info">Suivant</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+    

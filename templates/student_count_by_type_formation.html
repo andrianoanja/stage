@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Count by Type of Formation</title>
+</head>
+<body>
+    <h1>Student Count by Type of Formation</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Type of Formation</th>
+                <th>Student Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for type_formation, student_count in student_count_by_type_formation.items %}
+                <tr>
+                    <td>{{ type_formation }}</td>
+                    <td>{{ student_count }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+{{student_count_by_type_formation}}
+{{count}}
+</html>

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'message.html' %}
+{{aa}}
+<div class="col-sm-12">
+    <div class="text-center">
+        <h1 class="text-success"> Liste Etudiants</h1>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                {% if graphic %}
+                <img src="data:image/png;base64,{{ graphic }}" class="img-fluid"/>
+                {% else %}
+                <p>Aucune donnée à afficher.</p>
+                {% endif %}
+            </div>
+            <div class="col-md-12">
+                {% if graphic1 %}
+                <img src="data:image/png;base64,{{ graphic1 }}" class="img-fluid"/>
+                {% else %}
+                <p>Aucune donnée à afficher.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card-body">
+
+                <a href="" class="btn btn-danger">Telecharger PDF<i class="fa fa-download"></i></a>
+
+            </div>
+        </div>
+        <form action="" class="col-md-6">
+            <div class="card-body row  ">
+                <div class="col">
+                    <input type="serch" class="form-control form-control-borderless" name="serch">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary"> <i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr id="tete">
+                <th>Matricule</th>
+                <th>Numero</th>
+                <th>Nom et Prenoms</th>
+                <th>Sexe</th>
+                <th>Classe</th>
+                <th>Actions</th>
+            </tr>
+            {% for x in etudiants %}
+            <tr>
+                <td>{{x.matricule}}</td>
+                <td>{{x.numero}}</td>
+                <td>{{x.nom}} {{x.prenom}}</td>
+                <td>{{x.sexe}}</td>
+                <td>{{x.classe}}</td>
+                <td>
+                    <div class="d-flex justify-content-around">
+                        <a class="save btn btn-warning" href=""> <i class="fa fa-eye"></i> Voir</a>
+                        <a class="save btn btn-info" href=""> <i class="fa fa-edit"></i>Modifier</a>
+
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-3 offset-md-4">
+            <ul class="pagination">
+                {% if etudiants.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ etudiants.previous_page_number }}">Precedent</a>
+                </li>
+                {% endif %}
+                <li class="page-item active">
+                    <a class="page-link" href="?page={{ etudaints.number }}">{{ etudiants.number }}</a>
+                </li>
+
+                {% if etudiants.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ etudiants.next_page_number }}">Suivant</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

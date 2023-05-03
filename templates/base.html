@@ -1,0 +1,244 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <title>LTPGC|Mahamasina</title>
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <!-- site icon -->
+   <link rel="icon" href="{% static 'images/fevicon.png' %}" type="image/png" />
+   <!-- bootstrap css -->
+   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+   <!-- site css -->
+   <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+   <!-- responsive css -->
+   <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/bootstrap-select.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/perfect-scrollbar.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+
+</head>
+
+<body class="dashboard dashboard_1">
+   <div class="full_container">
+      <div class="inner_container">
+         <!-- Sidebar  -->
+         <nav id="sidebar">
+            <div class="sidebar_blog_1">
+               <div class="sidebar-header">
+                  <div class="logo_section">
+                     <a href=""><img class="logo_icon img-responsive" src="{% static 'images/logo/logo_icon.png' %}"
+                           alt="#" /></a>
+                  </div>
+               </div>
+               <div class="sidebar_user_info">
+                  <div class="icon_setting"></div>
+                  <div class="user_profle_side">
+                     <div class="user_img"><a href="{% url 'profile' %}"><img class="img-responsive" src="{{user.profile.url}}" alt="#" /></a>
+                     </div>
+                     <div class="user_info">
+                        <h6>{{user.username}}</h6>
+                        <p><span class="online_animation"></span> En ligne</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="sidebar_blog_2">
+               <h4>General</h4>
+               <ul class="list-unstyled components">
+                  <li><a href="{% url 'index' %}"><i class="fa fa-dashboard"></i> <span>Tableau de bord</span></a></li>
+
+                  <li>
+                     <a href="#secteur" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+                           class="fa fa-diamond "></i> <span>Secteur</span></a>
+                     <ul class="collapse list-unstyled" id="secteur">
+                        <li><a href="{% url 'ajoutsect' %}">> <span>Ajouter Secteur</span></a></li>
+                        <li><a href="{% url 'affSect' %}">> <span>Gerer Secteur</span></a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="#filiere" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+                           class="fa fa-diamond "></i> <span>Filière</span></a>
+                     <ul class="collapse list-unstyled" id="filiere">
+                        <li><a href="{% url 'ajoutF' %}">> <span>Ajouter Filière</span></a></li>
+                        <li><a href="{% url 'affF' %}">> <span>Gerer Filière</span></a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="#annee" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+                           class="fa fa-diamond "></i> <span>Année Scolaire</span></a>
+                     <ul class="collapse list-unstyled" id="annee">
+                        <li><a href="{% url 'ajoutAS' %}">> <span>Ajouter Année Scolaire</span></a></li>
+                        <li><a href="{% url 'affAS' %}">> <span>Gerer Année Scolaire</span></a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="#periode" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+                           class="fa fa-diamond "></i> <span>Periode</span></a>
+                     <ul class="collapse list-unstyled" id="periode">
+                        <li><a href="{% url 'ajoutP' %}">> <span>Ajouter Periode</span></a></li>
+                        <li><a href="{% url 'affP' %}">> <span>Gerer Periode</span></a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="#tmat" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+                           class="fa fa-diamond "></i> <span>Type de Matière</span></a>
+                     <ul class="collapse list-unstyled" id="tmat">
+                        <li><a href="{% url 'ajoutTM' %}">> <span>Ajouter Type de Matière</span></a></li>
+                        <li><a href="{% url 'affTM' %}">> <span>Gerer Type de Matière</span></a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="#matiere" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+                           class="fa fa-diamond "></i> <span>Matière</span></a>
+                     <ul class="collapse list-unstyled" id="matiere">
+                        <li><a href="{% url 'ajoutMat' %}">> <span>Ajouter  Matière</span></a></li>
+                        <li><a href="{% url 'ajoutM' %}">> <span>Ajouter Coeficiant de Matière</span></a></li>
+                        <li><a href="{% url 'affM' %}">> <span>Gerer coef Matière</span></a></li>
+                        <li><a href="{% url 'affMat' %}">> <span>Gerer Matière</span></a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="#niveau" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+                           class="fa fa-diamond "></i> <span>Classe</span></a>
+                     <ul class="collapse list-unstyled" id="niveau">
+                        <li><a href="{% url 'ajoutN' %}">> <span>Ajouter Classe</span></a></li>
+                        <li><a href="{% url 'affPr' %}">> <span>Gerer Classe</span></a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="#typeF" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+                           class="fa fa-diamond "></i> <span>Type Formation</span></a>
+                     <ul class="collapse list-unstyled" id="typeF">
+                        <li><a href="{% url 'ajoutTF' %}">> <span>Ajouter Type Formation</span></a></li>
+                        <li><a href="{% url 'affTF' %}">> <span>Gerer Type Formation</span></a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="#etudiant" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+                           class="fa fa-users"></i> <span>Etudiant</span></a>
+                     <ul class="collapse list-unstyled" id="etudiant">
+                        <li><a href="{% url 'ajoutE' %}">> <span>Ajouter Etudiant Sans Matricule</span></a></li>
+                        <li><a href="{% url 'getE' %}">> <span>Ajouter Etudiant Avec Matricule</span></a></li>
+                        <li><a href="{% url 'affE' %}">> <span>Gerer Etudiant</span></a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="#note" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-diamond "></i>
+                            <span>Note</span></a>
+                     <ul class="collapse list-unstyled" id="note">
+                        <li><a href="{% url 'note' %}">> <span>Ajouter Note</span></a></li>
+                        <li><a href="">> <span>Gerer Note</span></a></li>
+                        <li><a href="{% url 'bul' %}">> <span>Afficher bulletin</span></a></li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="#abs" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-diamond "></i>
+                            <span>Abscence</span></a>
+                     <ul class="collapse list-unstyled" id="abs">
+                        <li><a href="{% url 'classe' %}">> <span>Ajouter Absence</span></a></li>
+                        <li><a href="">> <span>Afficher Absence</span></a></li>
+                     </ul>
+                  </li>
+                  <li><a href="#parametre" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-cog yellow_color"></i> <span>Paramètre</span></a>
+                     <ul class="collapse list-unstyled" id="parametre">
+                        <li><a href="{% url 'inscire' %}">> <span>Ajouter autre utilisateur</span></a></li>
+                        <li><a href="{% url 'password-change' %}">> <span>Changer le Mot de passe</span></a></li>
+                     </ul>
+                  </li>
+               </ul>
+            </div>
+         </nav>
+         <!-- end sidebar -->
+         <!-- right content -->
+         <div id="content">
+            <!-- topbar -->
+            <div class="topbar">
+               <nav class="navbar navbar-expand-lg navbar-light">
+                  <div class="full">
+                     <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i
+                           class="fa fa-bars"></i></button>
+                     <!--  <div class="logo_section">
+                           <a href="index.html"><img class="img-responsive" src="images/logo/logo.png" alt="#" /></a>
+                        </div> -->
+                     <div class="right_topbar">
+                        <div class="icon_info">
+                           <ul>
+                              <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge">2</span></a></li>
+                              <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
+                              <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>
+                           </ul>
+                           <ul class="user_profile_dd">
+                              <li>
+                                 <a class="dropdown-toggle" data-toggle="dropdown"><img
+                                       class="img-responsive rounded-circle"
+                                       src="{{user.profile.url}}" alt="#" /><span
+                                       class="name_user">{{user.username}}</span></a>
+                                 <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                                    <a class="dropdown-item" href="">Paramètre</a>
+                                    <a class="dropdown-item" href="{% url 'deconnexion' %}"><span>Deconnecter</span> <i
+                                          class="fa fa-sign-out"></i></a>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </nav>
+            </div>
+
+            <div class="midde_cont">
+               <div class="container-fluid">
+                  <div class="row column_title">
+                     <div class="col-md-12">
+                        <div class="page_title text-center">
+                           <h2>GESTION DES ETUDIANTS DE LTPGC MAHAMASINA</h2>
+                        </div>
+                     </div>
+                  </div>
+                  {% block content %}
+
+                  {% endblock content %}
+
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+         <!-- jQuery -->
+         <script src="{% static 'js/jquery.min.js' %}"></script>
+         <script src="{% static 'js/popper.min.js' %}"></script>
+         <script src="{% static 'js/bootstrap.min.js' %}"></script>
+         <!-- wow animation -->
+         <script src="{% static 'js/animate.js' %}"></script>
+         <!-- select country -->
+         <script src="{% static 'js/bootstrap-select.js' %}"></script>
+         <!-- owl carousel -->
+         <script src="{% static 'js/owl.carousel.js' %}"></script>
+         <!-- chart js -->
+         <script src="{% static 'js/Chart.min.js' %}"></script>
+         <script src="{% static 'js/Chart.bundle.min.js' %}"></script>
+         <script src="{% static 'js/utils.js' %}"></script>
+         <script src="{% static 'js/analyser.js' %}"></script>
+         <!-- nice scrollbar -->
+         <script src="{% static 'js/perfect-scrollbar.min.js' %}"></script>
+         <script>
+            var ps = new PerfectScrollbar('#sidebar');
+         </script>
+         <!-- custom js -->
+         <script src="{% static 'js/chart_custom_style1.js' %}"></script>
+         <script src="{% static 'js/custom.js' %}"></script>
+         <script src="{% static 'js/jquery.min.js' %}"></script>
+</body>
+
+</html>

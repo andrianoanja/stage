@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    {% for i in etudiant %}
+    <label for="">Matricule : </label>
+    <input type="text" class="form-control" value="{{i.matricule}}" name="matricule">
+    <label for="">Nouveau Numero à la classe : </label>
+    <input type="number" class="form-control" value="{{et}}" name="numero">
+    <label for="">Nom : </label>
+    <input type="text" class="form-control" value="{{i.nom}}" name="nom">
+    <label for="">Prenoms : </label>
+    <input type="text" class="form-control" value="{{i.prenom}}" name="prenom">
+    <label for="">Classe : </label>
+    <input type="text" class="form-control" value="{{aa}}" name="niveau">
+    <label for="">Date de naissance : </label>
+    <input type="date" class="form-control" value="{{i.date_de_naissance | date:'Y-m-d' }}" name="date_de_naissance">
+    <label for="">Sexe : </label>
+    <input type="text" class="form-control" value="{{i.sexe}}" name="sexe">
+    {% endfor %}
+    <br>
+    <br>
+    <div class="text-center">
+        <button class="btn btn-info" type="submit">Enregistrer</button>
+    </div>
+
+</form>
+        
+{% endblock content %}
+    

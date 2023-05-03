@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="text-center">
+        <h1 class="text-danger">{{titre}}</h1>
+    </div>
+<br>
+{% include 'message.html' %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="hidden" value="{{annee.codeAS}}" class="form-control" name="annee">
+        <label for="">Periode :</label>
+        <select id="" class="form-control" name="periode">
+            <option >---------------------------</option>           
+            {% for i in periode %}
+               <option value="{{i.codeP}}">{{i.periode}}</option>
+            {% endfor %}               
+        </select>
+        <label for="">Etudiant :</label>
+        <select  id="" class="form-control" name="etudiant">
+            <option >---------------------------</option>     
+            {% for i in etudiants %}
+               <option value="{{i.id}}">{{i.matricule}}-{{i.nom}} {{i.prenom}}</option>
+            {% endfor %}
+        </select>
+        <label for="">Nombre d'Abscence :</label>
+        <input type="number" class="form-control" name="nb-abs">
+        <br>
+        <div class="text-center">
+            <button type="submit" class="btn btn-info">Enregistrer</button>
+        </div>
+    </form>
+{% endblock content %}
+    

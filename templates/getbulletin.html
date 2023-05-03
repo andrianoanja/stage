@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<form action="{% url 'bulletin' %}" method="get">
+    <label for="">Classe :</label>
+    <input type="text" class="form-control" name="classe" required>
+    <br>
+    <label for="">Periode :</label>
+    <input type="text" class="form-control" name="periode" required>
+    <br>
+    <label for="">Matricule :</label>
+    <input type="number" class="form-control" name="etudiant" min="0" required>
+    <br>
+    <div class="text-center">
+        <button  class="btn btn-info" type="submit">Afficher</button>
+    </div>
+</form>
+{% endblock content %}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulletin</title>
+    <style>
+        .table {
+            font-size: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>{% for i in cl %}
+                Année De Formation : {{i.annee_scolaire}}
+                {% endfor %}</th>
+            <th></th>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td>
+                <h3>BULLETIN SCOLAIRE</h3>
+            </td>
+            <td></td>
+            <td><img src="" alt="" width="50" height="50"></td>
+            <td></td>
+            <td>
+                <h3>Resultat: {{periode}}</h3>
+            </td>
+        </tr>
+        <tr>
+            {% for x in cl %}
+            <td>Type Formation : {{x.type_formation}} </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Secteur : {{x.filiere.secteur}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for x in cl %}
+            <td>Niveau : {{x.classe}} {{x.filiere_id}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Métier/Filière : {{x.filiere}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td></td>
+            <td>Nom et Prenoms :</td>
+            {% for y in etudiant %}
+            <td>{{y.nom}} {{y.prenom}}</td>
+            {% endfor %}
+            <td></td>
+        </tr>
+        <tr>
+
+            {% for y in etudiant %}
+            <td></td>
+            <td>IM : {{y.matricule}}</td>
+            <td></td>
+            <td>N° : {{y.numero}}</td>
+            <td></td>
+            {% endfor %}
+        </tr>
+    </table>
+    <br>
+    <div class="table">
+        <table style="border: 1px solid black;padding: 5px;">
+            <tr>
+                <th>Matières Composées</th>
+                <th>Note j/20</th>
+                <th>Composition /20</th>
+                <th>Moyenne /20</th>
+                <th>Coefficent</th>
+                <th>Total</th>
+                <th>Observation</th>
+            </tr>
+            {% for x in b %}
+            <tr>
+                <td> {{x.note.matiere.matiere}}</td>
+                <td>{{x.DS}}</td>
+                <td>{{x.exam}}</td>
+                <td>{{x.moyenne_par_matiere}}</td>
+                <td>{{x.note.matiere.coeff}}</td>
+                <td>{{x.note_avec_coeff}}</td>
+                <td>{{x.obs}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="3"></td>
+                <td>TOTAL :</td>
+                <td>{{coef}}</td>
+                <td>{{tot}}</td>
+            </tr>
+        </table><br><br>
+        <table style="border: 1px solid black;padding: 5px;">
+            <tr>
+                <th>MOYENNE GENERALE</th>
+                <th>{{moy}}/20</th>
+            </tr>
+            <tr>
+                <th>RANG</th>
+                <th>{{rang}} Sur {{nbet}} Apprenants</th>
+            </tr>
+            <tr>
+                <th>ASSIDUITE</th>
+                <th>{% for y in id %}
+                    {{y.nb_abscence}}
+                    {% endfor %}
+                    Heures d'absence</th>
+            </tr>
+            <tr>
+                <th>CONDUITE</th>
+                <th>{{conduite}}</th>
+            </tr>
+            <tr>
+                <th>APPRECIATION</th>
+                <th>{{apreciation}}</th>
+            </tr>
+        </table>
+        <table style="padding-top: 20px;">
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Fait à Antananarivo, le {{date |date:'d M Y'}}</td>
+            </tr>
+            <tr>
+                <td>Formateur Responsable</td>
+                <td></td>
+                <td>La surveillante Générale</td>
+            </tr>
+            <tr>
+                <td>RANDRIANARIVELO Herimamy</td>
+                <td></td>
+                <td>HENITSOA Venty Louisette</td>
+            </tr>
+            <tr>
+                <td>Le Chef de Travaux</td>
+                <td>Le Censeur</td>
+                <td>Le Proviseur</td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

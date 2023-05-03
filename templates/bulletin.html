@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for i in cl %}
+<div class="text-center">
+    Année de Formation : {{i.annee_scolaire}}
+</div>
+{% endfor %}
+<div class="d-flex justify-content-between">
+    <h1>BULLETIN SCOLAIRE</h1>
+
+    <h1>RESULTATS : {{periode}} </h1>
+</div>
+<br>
+{% for x in cl %}
+<div class="d-flex justify-content-between">
+    <div class="a">Type Formation : {{x.type_formation}} </div>
+    <div class="b">Secteur : {{x.filiere.secteur}}</div>
+</div>
+<br>
+<div class="d-flex justify-content-between">
+    <div class="a">Niveau : {{x.classe}} {{x.filiere_id}}</div>
+    <div class="b">Métier/Filière : {{x.filiere}}</div>
+</div>
+{% endfor %}
+
+<hr>
+<br>
+
+{% for y in etudiant %}
+<div class="text-center">
+    Nom et Prenoms : {{y.nom}} {{y.prenom}} <br><br>
+
+    Matricule : {{y.matricule}}
+    N° : {{y.numero}}
+</div>
+{% endfor %}
+
+<hr>
+<br>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Matières Composées</th>
+        <th>Note j/20</th>
+        <th>Composition /20</th>
+        <th>Moyenne</th>
+        <th>Coeff</th>
+        <th>Total</th>
+        <th>Observation</th>
+    </tr>
+    {% for x in bul %}
+    <tr>
+        <td> {{x.note.matiere.matiere}}</td>
+        <td>{{x.DS}}</td>
+        <td>{{x.exam}}</td>
+        <td>{{x.moyenne_par_matiere}}</td>
+        <td>{{x.note.matiere.coeff}}</td>
+        <td>{{x.note_avec_coeff}}</td>
+        <td>{{x.obs}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>TOTAL</td>
+        <td>{{coef}}</td>
+        <td>{{tot}}</td>
+    </tr>
+</table>
+<br>
+<table class="table table-bordered">
+    <tr>
+        <th>MOYENNE GENERALE</th>
+        <th>{{moy}}/20</th>
+    </tr>
+    <tr>
+        <td>RANG</td>
+        <td>{{rang}} Sur {{nbet}} Apprenants</td>
+    </tr>
+    <tr>
+        <td>ASSIDUITE</td>
+        <td>
+            {% for y in id %}
+            {{y.nb_abscence}}
+            {% endfor %}
+            Heures d'absence</td>
+    </tr>
+    <tr>
+        <td>CONDUITE</td>
+        <td>{{conduite}}</td>
+    </tr>
+    <tr>
+        <td>APPRECIATION</td>
+        <td>{{apreciation}}</td>
+    </tr>
+</table>
+
+<form action="{% url 'pdf-bul' %}" method="get">
+    {% for i in cl %}
+    <input type="hidden" value="{{i.classe}}" name="classe">
+    {% endfor %}
+    <input type="hidden" value="{{periode}}" name="periode">
+    {% for y in etudiant %}
+    <input type="hidden" value="{{y.id}}" name="etudiant">
+    {% endfor %} 
+    <button class="btn btn-danger" type="submit">Telecharger PDF</button>
+</form>
+{% endblock content %}

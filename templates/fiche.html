@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="text-center">
+    <h1 class="text-danger">{{titre}}</h1>
+</div>
+<br>
+<div class="col-md-8 offset-2">
+    <form action="" method="post">
+        {% csrf_token %}
+        
+        <label for="">Année Scolaire :</label>
+        <input type="text" value="{{annee}}" class="form-control">
+        <input type="hidden" value="{{annee.codeAS}}" class="form-control" name="annee">
+        <label for="">Classe :</label>
+        <select name="promotion" class="form-control">
+            <option >--------------------</option>
+            {% for x in prom %}
+                <option value="{{x.codeC}}">{{x.classe}}</option>
+            {% endfor %}
+                
+        </select>
+        {{form}}
+        <br>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
+    </form>
+
+</div>
+{% endblock content %}

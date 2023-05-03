@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Connexion</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/inscrire.css' %}">
+</head>
+<body>
+<div class="container">
+          <div class="header">
+              <h2>Se connecter</h2>
+          </div>
+          <form class="form" method="post">
+            {% csrf_token %}
+            <div class="form-control success">
+              <label>Utilisateur</label>
+              <input type="text" name="user" required>
+          </div>
+      <div class="form-control success">
+        <label>Mot de passe</label>
+        <input type="password" name="password" required>
+    </div>
+            <button type="submit">Connexion</button><br>
+            {% include 'message.html' %}
+          </form>
+      </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<br><br>
+<div class="row">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-6">
+       <div class="card p-2">
+        <br><br>
+       
+        <div class="text-center">
+            <h1 class="text-danger">Absence</h1>
+        </div>
+        <br><br>
+        <form action="{% url 'abs' %}">
+            <label for="">Annee Scolaire :</label>
+            <input type="text" value="{{annee}}" class="form-control" name="annee">
+            <label for="">Classe :</label>
+            <select name="classe" id="" class="form-control">
+                <option>--------------</option>
+
+                {% for z in classe %}
+                <option value="{{z.codePr}}">{{z.classe}}</option>
+
+                {% endfor %}
+            </select>
+            <br>
+            <div class="text-right">
+                <button class="btn btn-info" type="submit">Suivant</button>
+            </div>
+        </form>
+       </div>
+    </div>
+    <div class="col-md-3">
+
+    </div>
+</div>
+{% endblock content %}
