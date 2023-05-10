@@ -111,16 +111,23 @@ def ajouterAnnee(request):
 @login_required(login_url='connexion') 
 def ajouterN(request):
     titre="Ajouter Classe"
+    annee=AnneeScolaire.objects.all().last()
+    anne=AnneeScolaire.objects.all().last().codeAS
     form = ClasseForm()
     if request.method == "POST":
-        form = ClasseForm(request.POST)
-        if form.is_valid():
-           form.save()
-           messages.success(request, "Enregistrement succes")
-        else:
+        codec=request.POST.get('codeC')
+        filiere=request.POST.get('filiere')
+        niveau=request.POST.get('niveau')
+        typef=request.POST.get('type_formation')
+        classe=request.POST.get('classe')
+        try:
+            query=Classe.objects.create(codeC=codec,filiere_id=filiere,niveau=niveau,type_formation_id=typef,classe=classe,annee_scolaire_id=anne)
+            messages.success(request, "Enregistrement succes")
+        except:
+            query=Classe.objects.create(codeC=codec,filiere_id=filiere,niveau=niveau,type_formation_id=typef,classe=classe,annee_scolaire_id=anne)
             messages.error(request, "Verifier les champs")
         return redirect('affPr')      
-    return render(request,'ajouter/ajouter.html',{'form': form,'titre':titre } )
+    return render(request,'ajouter/classe.html',{'form': form,'titre':titre,'annee':annee} )
 
 @login_required(login_url='connexion') 
 def ajouterTF(request):
@@ -137,15 +144,21 @@ def ajouterTF(request):
     return render(request,'ajouter/ajouter.html',{'form': form,'titre':titre } )
 
 @login_required(login_url='connexion') 
+def getet(request):
+    titre="Ajouter Etudiant Sans Matricule"
+    aaa=AnneeScolaire.objects.all().last()
+    aa=Classe.objects.filter(annee_scolaire_id=aaa)
+    typef=TypeFormation.objects.all()
+    return render(request,'getet.html',{'aa':aa,'typef':typef,'titre':titre})
+
+
+@login_required(login_url='connexion') 
 def ajouterE(request):
     titre="Ajouter Etudiant Sans Matricule"
     form = EtudiantForm()
     classe=request.GET.get('classe')
-    b=Etudiant.objects.filter(classe=classe).count()+1
-    aaa=AnneeScolaire.objects.all().last()
-    aa=Classe.objects.filter(annee_scolaire_id=aaa)
-    typef=TypeFormation.objects.all()
     type_formation=request.GET.get('typef')
+    
     count = Etudiant.objects.filter(classe__type_formation_id=type_formation)
     etudiants=[i for i in count]
     matric=[]
@@ -156,20 +169,32 @@ def ajouterE(request):
             matri=i.matricule
             matric.append((matri))
             maxa=max(matric)+1
+    b=Etudiant.objects.filter(classe=classe) 
+    etu=[y for y in b]
+    numero=[]
+    num=1
+    if etu:
+        for y in etu:
+            nume=y.numero
+            numero.append((nume))  
+            num=max(numero)+1
     if request.method  == 'POST':
-        matr=request.POST.get('matricule')
-        numero=request.POST.get('numero')
+        # matr=request.POST.get('matricule')
+        # numero=request.POST.get('numero')
         nom=request.POST.get('nom')
         prenom=request.POST.get('prenom')
-        id_niveau=request.POST.get('classe')
+        # id_niveau=request.POST.get('classe')
         daten=request.POST.get('date_de_naissance')
         sexe=request.POST.get('sexe')
         try:
-            etudiant=Etudiant.objects.create(matricule=matr,numero=numero,nom=nom,prenom=prenom,classe_id=id_niveau,date_de_naissance=daten,sexe=sexe)
+            etudiant=Etudiant.objects.create(matricule=maxa,numero=num,nom=nom,prenom=prenom,classe_id=classe,date_de_naissance=daten,sexe=sexe)
+            messages.success(request, "Enregistrement succes avec  numero dans la classe :"+" "+ str(num) +" "+"et matricule:"+" "+str(maxa))
         except:
-            etudiant=Etudiant.objects.create(matricule=matr,numero=numero,nom=nom,prenom=prenom,classe_id=id_niveau,date_de_naissance=daten,sexe=sexe)
+            etudiant=Etudiant.objects.create(matricule=maxa,numero=num,nom=nom,prenom=prenom,classe_id=classe,date_de_naissance=daten,sexe=sexe)
+            messages.success(request, "Enregistrement succes avec  numero dans la classe :"+" "+ str(num) +" "+"et matricule:"+" "+str(maxa))
+
         return redirect('affE')
-    return render(request,'ajouter/etudiant.html',{'form': form,'titre':titre ,'classe':classe,'aa':aa,'b':b,'typef':typef,'count':maxa})
+    return render(request,'ajouter/etudiant.html',{'form': form,'titre':titre,'b':b,'count':maxa,'num':num})
 
 @login_required(login_url='connexion') 
 def getetudiant(request):
@@ -179,26 +204,37 @@ def getetudiant(request):
 
 @login_required(login_url='connexion') 
 def ajoutETM(request):
-    matr=request.GET.get('matricule')
+    matri=request.GET.get('matricule')
     ancienC=request.GET.get('classeA')
     classe=request.GET.get('classe')
-    et=Etudiant.objects.filter(classe=classe).count()+1
-    etudiant=Etudiant.objects.filter(matricule=matr,classe__classe=ancienC)
+    et=Etudiant.objects.filter(classe=classe)
+    etu=[y for y in et]
+    numero=[]
+    num=1
+    if etu:
+        for y in etu:
+            nume=y.numero
+            numero.append((nume))  
+            num=max(numero)+1
+    etudiant=Etudiant.objects.filter(matricule=matri,classe__classe=ancienC)
     if request.method  == 'POST':
-        matr=request.POST.get('matricule')
-        numero=request.POST.get('numero')
+        # matr=request.POST.get('matricule')
+        # numero=request.POST.get('numero')
         nom=request.POST.get('nom')
         prenom=request.POST.get('prenom')
         id_niveau=request.POST.get('niveau')
         daten=request.POST.get('date_de_naissance')
-        sexe=request.POST.get('sexe')
+        sex=request.POST.get('sexe')
         try:
-            etudiant=Etudiant.objects.create(matricule=matr,numero=numero,nom=nom,prenom=prenom,classe_id=id_niveau,date_de_naissance=daten,sexe=sexe)
+            etudiant=Etudiant.objects.create(matricule=matri,numero=num,nom=nom,prenom=prenom,classe_id=id_niveau,date_de_naissance=daten,sexe=sex)
+            messages.success(request, "Enregistrement succes avec nouveau numero dans la classe est"+" "+ str(num))
         except:
-            etudiant=Etudiant.objects.create(matricule=matr,numero=numero,nom=nom,prenom=prenom,classe_id=id_niveau,date_de_naissance=daten,sexe=sexe)
+            
+            messages.error(request, "erreur")
         return redirect('affE')
-    return render(request,'etudiantM.html',{'etudiant':etudiant,'aa':classe,'et':et})
-    
+    return render(request,'etudiantM.html',{'etudiant':etudiant,'aa':classe,'et':et,'num':num})
+
+
 
 @login_required(login_url='connexion') 
 def ajouterP(request):
@@ -412,6 +448,39 @@ def afficheformation(request):
     return render(request,'afficher/typeformation.html', {'formations':formations})
 
 #--------------------------------modification----------------------------------------------
+@login_required(login_url='connexion')
+def modifSecteur(request,myid):
+    titre="Modifier Secteur"
+    form = Secteur.objects.get(codeSect=myid)
+    form = SecteurForm(request.POST or None,instance=form)
+    if form.is_valid():
+        form.save()
+        return redirect('affSect')
+    context = {'form':form,'titre':titre}
+    return render(request,'ajouter/ajouter.html',context)
+
+@login_required(login_url='connexion')
+def modifFiliere(request,myid):
+    titre="Modifier Filiere"
+    form = Filiere.objects.get(codeF=myid)
+    form = FiliereForm(request.POST or None,instance=form)
+    if form.is_valid():
+        form.save()
+        return redirect('affF')
+    context = {'form':form,'titre':titre}
+    return render(request,'ajouter/ajouter.html',context)
+
+@login_required(login_url='connexion')
+def modifAnnee(request,myid):
+    titre="Modifier Année Scolaire"
+    form = AnneeScolaire.objects.get(codeAS=myid)
+    form = AnneeScoForm(request.POST or None,instance=form)
+    if form.is_valid():
+        form.save()
+        return redirect('affAS')
+    context = {'form':form,'titre':titre}
+    return render(request,'ajouter/ajouter.html',context)
+
 
 @login_required(login_url='connexion') 
 def fichenote(request):
@@ -427,25 +496,35 @@ def ajoutFN(request):
     annee=AnneeScolaire.objects.all().last()
     ann=annee.codeAS
     prom=Classe.objects.filter(annee_scolaire_id=ann)
-    form=NoteForm()
+    return render(request,'fiche.html',{'titre':titre,'annee':annee,'prom':prom})
 
+@login_required(login_url='connexion')
+def ajoutFN1(request):
+    titre="Creer Fiche de note"
+    anneesc=request.GET.get('annee')
+    kilasy=request.GET.get('classe')
+    clas=Classe.objects.filter(codeC=kilasy)
+    z = [t for t in clas]
+    niveau=str()
+    filiere=str()
+    if z:
+         for m in z:
+             niveau=m.niveau
+             filiere=m.filiere
+    matieres=Matiere.objects.filter(filiere=filiere,niveau=niveau)
+    periodes=Periode.objects.all()
     if request.method  == 'POST':
-        anneesc=request.POST.get('annee')
         periode=request.POST.get('periode')
         matiere=request.POST.get('matiere')
-        prom=request.POST.get('promotion')
         try:
-            etudiant=Note.objects.create(annee_scolaire_id=anneesc,
+            note=Note.objects.create(annee_scolaire_id=anneesc,
                                          periode_id=periode,
                                          matiere_id=matiere,
-                                         classe_id=prom)
+                                         classe_id=kilasy)
         except:
-            etudiant=Note.objects.create(annee_scolaire_id=anneesc,
-                                         periode_id=periode,
-                                         matiere_id=matiere,
-                                         classe_id=prom)
+            messages.error(request, "efa miexiste")
         return redirect('note')
-    return render(request,'fiche.html',{'titre':titre,'annee':annee,'form':form,'prom':prom})
+    return render(request,'fiche1.html',{'titre':titre,'matieres':matieres,'periodes':periodes})
 
 @login_required(login_url='connexion') 
 def ajoutN(request,myid):
@@ -483,28 +562,45 @@ def modifierNote(request,id,myid):
     context = {'form':contenir,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
+@login_required(login_url='connexion')
+def bull(request):
+    titre="Afficher bulletin"
+    typef=TypeFormation.objects.all()
+    filiere=Filiere.objects.all()
+    return render(request,'bull.html',{'titre':titre,'typef':typef,'filiere':filiere})
+
 @login_required(login_url='connexion') 
 def getbull(request):
-    
-    return render(request,'getbulletin.html')
+    annee=request.GET.get('annee')
+    typef=request.GET.get('typef')
+    filiere=request.GET.get('filiere')
+    classe=Classe.objects.filter(filiere_id=filiere,annee_scolaire_id__annee_scolaire=annee,type_formation_id=typef)
+    return render(request,'getbulletin.html',{'classe':classe})
+
+@login_required(login_url='connexion')
+def bulle(request):
+    clas=request.GET.get('classe')
+    etudiants=Etudiant.objects.filter(classe_id=clas)
+    periode=Periode.objects.all()
+    return render(request,'bulle.html',{'etudiants':etudiants,'periode':periode,'classe':clas})
 
 @login_required(login_url='connexion') 
 def bulletin(request):
     classe=request.GET.get('classe')
     periode=request.GET.get('periode')
-    matricule=request.GET.get('etudiant')
-    clas=Classe.objects.filter(classe=classe)
-    etudian=Etudiant.objects.filter(matricule=matricule,classe_id__classe=classe)
-    z = [t for t in etudian]
+    idEt=request.GET.get('etudiant')
+    klasy=Classe.objects.filter(codeC=classe)
+    etudian=Etudiant.objects.filter(id=idEt,classe_id=classe)
+    z = [t for t in klasy]
     if z:
-        idE=str()
-        for m in z:
-            idE=m.id
-    abs=Abs.objects.filter(etudiant_id=idE,periode_id__periode=periode)
-    nbet=Etudiant.objects.filter(classe_id__classe=classe).count()
-    bulletin = Contenir.objects.filter(note__periode_id__periode=periode,note__classe_id__classe=classe,etudiant_id__matricule=matricule)
-    promotion = Classe.objects.get(classe=classe)
-    etudiants = Etudiant.objects.filter(classe=promotion)
+         annee=str()
+         for m in z:
+             annee=m.annee_scolaire_id
+    abs=Abs.objects.filter(etudiant_id=idEt,periode_id=periode,annee_scolaire_id=annee)
+    nbet=Etudiant.objects.filter(classe_id=classe).count()
+    bulletin = Contenir.objects.filter(etudiant_id=idEt,note_id__classe_id=classe,note_id__periode_id=periode)
+    promotion = Classe.objects.get(codeC=classe)
+    etudiants = Etudiant.objects.filter(classe_id=promotion)
     coef =int()
     tot=float()
     nb=int()
@@ -538,7 +634,7 @@ def bulletin(request):
         apreciation="INSUFFISANT"
     else:
         apreciation="TSARA"
-    bulletins = Contenir.objects.filter(note__periode_id__periode=periode,note__classe_id__classe=classe)
+    bulletins = Contenir.objects.filter(note__periode_id=periode,note__classe_id=classe)
     moyennes_avec_coeff = []
     for etudiant in etudiants:
         notes_etudiant = bulletins.filter(etudiant=etudiant)
@@ -549,54 +645,58 @@ def bulletin(request):
         moyennes_avec_coeff.append((n))
     moyennes_avec_coeff.sort(reverse=True)
     rang=moyennes_avec_coeff.index(tot)+1 
-    return render(request,'bulletin.html',{'bul':bulletin,"coef":coef,'tot':tot,'moy':moy,'cl':clas,'periode':periode,'etudiant':etudian,'conduite':conduite,'apreciation':apreciation,'rang':rang,'nbet':nbet,'id':abs})
+    return render(request,'bulletin.html',{'cl':klasy,'etudiant':etudian,'id':abs,'nbet':nbet,'bul':bulletin,'moy':moy,'coef':coef,'tot':tot,'conduite':conduite,'apreciation':apreciation,'rang':rang,'periode':periode})
 
 @login_required(login_url='connexion') 
 def classe(request):
     annee=AnneeScolaire.objects.all().last()
+    periode=Periode.objects.all()
     classe=Classe.objects.filter(annee_scolaire_id=annee)
-    return render(request,'et.html',{'classe':classe,'annee':annee})
+    return render(request,'et.html',{'classe':classe,'periode':periode,'annee':annee})
 
 @login_required(login_url='connexion') 
 def absence(request):
     titre="Absence"
+    periode=request.GET.get('periode')
     clas=request.GET.get('classe')
     annee=AnneeScolaire.objects.all().last()
-    periode=Periode.objects.all()
-    etudiants=Etudiant.objects.filter(promotion_id=clas)
+    etudiants=Etudiant.objects.filter(classe_id=clas)
+    table=Abs.objects.filter(periode_id=periode,annee_scolaire=annee,etudiant_id__classe_id=clas).order_by('etudiant_id__classe_id')
     if request.method == 'POST':
-        annee_sco=request.POST.get('annee')
-        period=request.POST.get('periode')
         et=request.POST.get('etudiant')
         nb=request.POST.get('nb-abs')
         try:
-            donnee=Abs.objects.create(annee_scolaire_id=annee_sco,
-                                  periode_id=period,
+            donnee=Abs.objects.create(annee_scolaire=annee,
+                                  periode_id=periode,
                                   etudiant_id=et,
                                  nb_abscence=nb)
             messages.error(request, "Enregistrement succes")
             
+            return render(request,'absence.html',{'titre':titre,'etudiants':etudiants,'tabl':table})
         except:
             messages.error(request, "ef mi existe")
-            return redirect("abs")
-        return redirect("abs")
-    return render(request,'absence.html',{'annee':annee,'titre':titre,'periode':periode,'etudiants':etudiants})
+            return render(request,'absence.html',{'titre':titre,'etudiants':etudiants,'tabl':table})
+        
+    
+    return render(request,'absence.html',{'titre':titre,'etudiants':etudiants,'tabl':table})
 
+@login_required(login_url='connexion')
 def pdfbulletin(request):
     classe=request.GET.get('classe')
     periode=request.GET.get('periode')
-    matricule=request.GET.get('etudiant')
-    clas=Classe.objects.filter(classe=classe)
-    etudian=Etudiant.objects.filter(id=matricule,classe_id__classe=classe)
-    z = [t for t in etudian]
+    idEt=request.GET.get('etudiant')
+    klasy=Classe.objects.filter(codeC=classe)
+    etudian=Etudiant.objects.filter(id=idEt,classe_id=classe)
+    z = [t for t in klasy]
+    annee=str()
     if z:
-        for m in z:
-            idE=m.id
-            abs=Abs.objects.filter(etudiant_id=idE,periode_id__periode=periode)
-    nbet=Etudiant.objects.filter(classe_id__classe=classe).count()
-    bulletin = Contenir.objects.filter(note__classe_id__classe=classe,etudiant_id=matricule)
-    promotion = Classe.objects.get(classe=classe)
-    etudiants = Etudiant.objects.filter(classe=promotion)
+         for m in z:
+             annee=m.annee_scolaire_id
+    abs=Abs.objects.filter(etudiant_id=idEt,periode_id=periode,annee_scolaire_id=annee)
+    nbet=Etudiant.objects.filter(classe_id=classe).count()
+    bulletin = Contenir.objects.filter(etudiant_id=idEt,note_id__classe_id=classe,note_id__periode_id=periode)
+    promotion = Classe.objects.get(codeC=classe)
+    etudiants = Etudiant.objects.filter(classe_id=promotion)
     coef =int()
     tot=float()
     nb=int()
@@ -630,21 +730,21 @@ def pdfbulletin(request):
         apreciation="INSUFFISANT"
     else:
         apreciation="TSARA"
-    bulletins = Contenir.objects.filter(note__periode_id__periode=periode,note__classe_id__classe=classe)
+    bulletins = Contenir.objects.filter(note__periode_id=periode,note__classe_id=classe)
     moyennes_avec_coeff = []
     for etudiant in etudiants:
         notes_etudiant = bulletins.filter(etudiant=etudiant)
         n=0
         for note_etudiant in notes_etudiant:
             ttot = note_etudiant.note_avec_coeff()
-            n += ttot 
+            n += ttot
         moyennes_avec_coeff.append((n))
     moyennes_avec_coeff.sort(reverse=True)
-    rang=moyennes_avec_coeff.index(tot)+1 
+    rang=moyennes_avec_coeff.index(tot)+1
     x = datetime.datetime.now()
     
     template_path='bulletin_pdf.html'
-    context={'b': bulletin,'cl':clas,'periode':periode,'etudiant':etudian,'coef':coef,'tot':tot,'moy':moy,'rang':rang,'nbet':nbet,'id':abs,'conduite':conduite,'apreciation':apreciation,'date':x}
+    context={'cl':klasy,'etudiant':etudian,'id':abs,'nbet':nbet,'bul':bulletin,'moy':moy,'coef':coef,'tot':tot,'conduite':conduite,'apreciation':apreciation,'rang':rang,'date':x}
     response=HttpResponse(content_type='application/pdf')#application/csv application/xls
     response['Content-Disposition'] = 'filename="bulletin.pdf"'
     template=get_template(template_path)

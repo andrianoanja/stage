@@ -5,19 +5,25 @@
     {% csrf_token %}
     {% for i in etudiant %}
     <label for="">Matricule : </label>
-    <input type="text" class="form-control" value="{{i.matricule}}" name="matricule">
-    <label for="">Nouveau Numero à la classe : </label>
-    <input type="number" class="form-control" value="{{et}}" name="numero">
+    <input type="text" class="form-control" value="{{i.matricule}}" name="matricule" disabled>
+    <!-- <label for="">Nouveau Numero à la classe : </label>
+    <input type="number" class="form-control" value="{{et}}" name="numero"> -->
+    
     <label for="">Nom : </label>
-    <input type="text" class="form-control" value="{{i.nom}}" name="nom">
+    <input type="hidden" class="form-control" value="{{i.nom}}" name="nom">
+    <input type="text" class="form-control" value="{{i.nom}}" disabled>
     <label for="">Prenoms : </label>
-    <input type="text" class="form-control" value="{{i.prenom}}" name="prenom">
+    <input type="hidden" class="form-control" value="{{i.prenom}}" name="prenom" >
+    <input type="text" class="form-control" value="{{i.prenom}}" disabled >
     <label for="">Classe : </label>
-    <input type="text" class="form-control" value="{{aa}}" name="niveau">
+    <input type="hidden" class="form-control" value="{{aa}}" name="niveau" >
+    <input type="text" class="form-control" value="{{aa}}" disabled >
     <label for="">Date de naissance : </label>
-    <input type="date" class="form-control" value="{{i.date_de_naissance | date:'Y-m-d' }}" name="date_de_naissance">
+    <input type="hidden" class="form-control" value="{{i.date_de_naissance | date:'Y-m-d' }}" name="date_de_naissance" >
+    <input type="date" class="form-control" value="{{i.date_de_naissance | date:'Y-m-d' }}"disabled >
     <label for="">Sexe : </label>
-    <input type="text" class="form-control" value="{{i.sexe}}" name="sexe">
+    <input type="hidden" class="form-control" value="{{i.sexe}}" name="sexe" >
+    <input type="text" class="form-control" value="{{i.sexe}}" disabled >
     {% endfor %}
     <br>
     <br>

@@ -8,7 +8,7 @@
 
     </div>
     <div class="col-md-6">
-       <div class="card p-2">
+   
         <br><br>
        
         <div class="text-center">
@@ -18,12 +18,19 @@
         <form action="{% url 'abs' %}">
             <label for="">Annee Scolaire :</label>
             <input type="text" value="{{annee}}" class="form-control" name="annee">
+            <label for="">Periode :</label>
+        <select id="" class="form-control" name="periode">
+            <option >---------------------------</option>           
+            {% for i in periode %}
+               <option value="{{i.codeP}}">{{i.periode}}</option>
+            {% endfor %}               
+        </select>
             <label for="">Classe :</label>
             <select name="classe" id="" class="form-control">
                 <option>--------------</option>
 
                 {% for z in classe %}
-                <option value="{{z.codePr}}">{{z.classe}}</option>
+                <option value="{{z.codeC}}">{{z.classe}}</option>
 
                 {% endfor %}
             </select>
@@ -32,7 +39,7 @@
                 <button class="btn btn-info" type="submit">Suivant</button>
             </div>
         </form>
-       </div>
+       
     </div>
     <div class="col-md-3">
 

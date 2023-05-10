@@ -10,7 +10,7 @@
         <div class="col-md-6">
             <div class="card-body">
    
-    <a href="" class="btn btn-danger">Telecharger PDF<i class="fa fa-download"></i></a>
+    <!-- <a href="" class="btn btn-danger">Telecharger PDF<i class="fa fa-download"></i></a> -->
    
     </div>
     </div>
@@ -30,19 +30,15 @@
             <tr id="tete">
                 <th>Code  Année Scolaire</th>
                 <th>Année Scolaire</th>
-                <th>Actions</th>
+                <th>Action</th>
             </tr>
             {% for x in annee %}
             <tr>
                 <td>{{x.codeAS}}</td>
                 <td>{{x.annee_scolaire}}</td>
                 <td>
-                    <div class="d-flex justify-content-around">
-                        <a class="save btn btn-warning" href=""> <i class="fa fa-eye"></i> Voir</a>
-                        <a class="save btn btn-info" href=""> <i class="fa fa-edit"></i>
-                            Modifier</a>
-                        <a class="save btn btn-danger" href=""> <i class="fa fa-trash-o"></i>
-                            Suprimer</a>
+                    <div class="d-flex justify-content-around">                      
+                        <a class="save btn btn-info" href="{% url 'modifannee' x.codeAS %}"> <i class="fa fa-edit"></i>Modifier</a>
                     </div>
                 </td>
             </tr>

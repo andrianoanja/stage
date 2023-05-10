@@ -10,7 +10,7 @@
         <div class="col-md-6">
             <div class="card-body">
    
-    <a href="" class="btn btn-danger">Telecharger PDF<i class="fa fa-download"></i></a>
+    <!-- <a href="" class="btn btn-danger">Telecharger PDF<i class="fa fa-download"></i></a> -->
    
     </div>
     </div>
@@ -30,7 +30,7 @@
             <tr id="tete">
                 <th>Code  Secteur</th>
                 <th>Secteur</th>
-                <th>Actions</th>
+                <th>Action</th>
             </tr>
             {% for x in secteurs %}
             <tr>
@@ -38,11 +38,7 @@
                 <td>{{x.secteur}}</td>
                 <td>
                     <div class="d-flex justify-content-around">
-                        <a class="save btn btn-warning" href=""> <i class="fa fa-eye"></i> Voir</a>
-                        <a class="save btn btn-info" href=""> <i class="fa fa-edit"></i>
-                            Modifier</a>
-                        <a class="save btn btn-danger" href=""> <i class="fa fa-trash-o"></i>
-                            Suprimer</a>
+                        <a class="save btn btn-info" href="{% url 'modifsecteur' x.codeSect %}"> <i class="fa fa-edit"></i>Modifier</a>
                     </div>
                 </td>
             </tr>

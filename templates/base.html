@@ -89,7 +89,15 @@
                         <li><a href="{% url 'affP' %}">> <span>Gerer Periode</span></a></li>
                      </ul>
                   </li>
-                  <li>
+                     <li>
+                        <a href="#typeF" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+                              class="fa fa-diamond "></i> <span>Type Formation</span></a>
+                        <ul class="collapse list-unstyled" id="typeF">
+                           <li><a href="{% url 'ajoutTF' %}">> <span>Ajouter Type Formation</span></a></li>
+                           <li><a href="{% url 'affTF' %}">> <span>Gerer Type Formation</span></a></li>
+                        </ul>
+                     </li>
+                     <li>
                      <a href="#tmat" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
                            class="fa fa-diamond "></i> <span>Type de Matière</span></a>
                      <ul class="collapse list-unstyled" id="tmat">
@@ -116,18 +124,10 @@
                      </ul>
                   </li>
                   <li>
-                     <a href="#typeF" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                           class="fa fa-diamond "></i> <span>Type Formation</span></a>
-                     <ul class="collapse list-unstyled" id="typeF">
-                        <li><a href="{% url 'ajoutTF' %}">> <span>Ajouter Type Formation</span></a></li>
-                        <li><a href="{% url 'affTF' %}">> <span>Gerer Type Formation</span></a></li>
-                     </ul>
-                  </li>
-                  <li>
                      <a href="#etudiant" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
                            class="fa fa-users"></i> <span>Etudiant</span></a>
                      <ul class="collapse list-unstyled" id="etudiant">
-                        <li><a href="{% url 'ajoutE' %}">> <span>Ajouter Etudiant Sans Matricule</span></a></li>
+                        <li><a href="{% url 'sansM' %}">> <span>Ajouter Etudiant Sans Matricule</span></a></li>
                         <li><a href="{% url 'getE' %}">> <span>Ajouter Etudiant Avec Matricule</span></a></li>
                         <li><a href="{% url 'affE' %}">> <span>Gerer Etudiant</span></a></li>
                      </ul>
@@ -138,7 +138,7 @@
                      <ul class="collapse list-unstyled" id="note">
                         <li><a href="{% url 'note' %}">> <span>Ajouter Note</span></a></li>
                         <li><a href="">> <span>Gerer Note</span></a></li>
-                        <li><a href="{% url 'bul' %}">> <span>Afficher bulletin</span></a></li>
+                        <li><a href="{% url 'bull' %}">> <span>Afficher bulletin</span></a></li>
                      </ul>
                   </li>
                   <li>

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-6">
+        <div class="text-center">
+            <h1 class="text-danger">{{titre}}</h1>
+        </div>
+        <br>
+        <form action="{% url 'bul' %}">
+            <label for="">Année Scolaire :</label>
+            <input type="text" name="annee" class="form-control">
+            <br>
+            <label for="">Type Formation :</label>
+            <select name="typef" id="" class="form-control">
+                <option>---------------------------</option>
+                {% for y in typef %}
+                <option value="{{y.codeTF}}">{{y.type_formation}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <label for="">Filiere :</label>
+            <select name="filiere" id="" class="form-control">
+                <option>---------------------------</option>
+                {% for y in filiere %}
+                <option value="{{y.codeF}}">{{y.filiere}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Suivant</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3">
+
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <br><br>
+            <div class="text-center">
+                <h1 class="text-danger">{{titre}}</h1>
+            </div>
+            
+            <form  method="POST">
+                {% csrf_token %}
+                <label for="">Matière :</label>
+            <select name="matiere" id="" class="form-control">
+                <option>--------------------</option>
+                {% for z in matieres %}
+                    <option value="{{z.id}}">{{z.matiere}}</option>
+                {% endfor %}         
+            </select>
+            <br>
+            <label for="">Periode :</label>
+            <select name="periode" class="form-control">
+                <option>--------------------</option>
+                {% for i in periodes %}
+                    <option value="{{i.codeP}}">{{i.periode}}</option>
+                {% endfor %}       
+            </select>
+            <br>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Enregistrer</button>
+            </div>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+{% endblock content %}
+    

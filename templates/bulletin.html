@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-
+{{annee}}
 {% for i in cl %}
 <div class="text-center">
     Année de Formation : {{i.annee_scolaire}}
@@ -99,12 +99,12 @@
 
 <form action="{% url 'pdf-bul' %}" method="get">
     {% for i in cl %}
-    <input type="hidden" value="{{i.classe}}" name="classe">
+    <input type="hidden" value="{{i.codeC}}" name="classe">
     {% endfor %}
     <input type="hidden" value="{{periode}}" name="periode">
     {% for y in etudiant %}
     <input type="hidden" value="{{y.id}}" name="etudiant">
     {% endfor %} 
-    <button class="btn btn-danger" type="submit">Telecharger PDF</button>
+    <button class="btn btn-danger" type="submit">Exporter en PDF</button>
 </form>
 {% endblock content %}

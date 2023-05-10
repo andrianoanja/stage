@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -144,3 +145,6 @@ MEDIA_ROOT = BASE_DIR / "media"
 LOGOUT_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = "utilisateur.Utilisateur"
+
+
+SESSION_KEY_PREFIX = 'user_{}'.format(os.getpid())

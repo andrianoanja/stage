@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="text-center">
+            <h1 class="text-danger">Afficher Bulletin</h1>
+        </div>
+        <br><br>
+        <form action="{% url 'bulletin' %}">
+            <label for="">Classe :</label>
+            <input type="hidden" value="{{classe}}" class="form-control" name="classe">
+            <input type="text" value="{{classe}}" class="form-control" disabled>
+            <label>Periode :</label>
+            <select name="periode" class="form-control">
+                <option>---------------------------</option>
+                {% for y in periode %}
+                <option value="{{y.codeP}}">{{y.periode}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <label for="">Etudiant :</label>
+            <select name="etudiant" class="form-control">
+                <option>---------------------------</option>
+                {% for i in etudiants %}
+                <option value="{{i.id}}">{{i.numero}}-{{i.nom}} {{i.prenom}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <div class="text-center">
+                <button type="submit" class="btn btn-info">Suivant</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="text-center">
+    <h1 class="text-danger">{{titre}}</h1>
+</div>
+<form action="{% url 'ajoutE' %}" id="get">
+    <div class="form-group has-success">
+        <label for="">Type Formation</label>
+        <select name="typef" id="" class="form-control">
+            <option>-----------------------------------------</option>
+            {% for x in typef %}
+            <option value="{{x.codeTF}}">{{x.type_formation}}</option>
+            {% endfor %}
+        </select><br>
+    </div>
+    <div class="form-group has-success">
+        <label for="">Classe</label>
+        <select name="classe" id="" class="form-control">
+            <option>-----------------------------------------</option>
+            {% for x in aa %}
+            <option value="{{x.codeC}}">{{x.classe}}</option>
+            {% endfor %}
+        </select><br>
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Suivant</button>
+    </div>
+</form>
+{% endblock content %}

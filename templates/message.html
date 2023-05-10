@@ -1,7 +1,14 @@
 {% if messages %}
 {% for mess in messages %}
-    <div class="alert">
-        {{ mess }}
-    </div>
+
+<!-- <script>
+            
+            alert ("{{mess}}")
+            
+        </script> -->
+<div class="text-center">
+    <h6 class="text-danger">{{mess}}</h6>
+</div>
+
 {% endfor %}
 {% endif %}

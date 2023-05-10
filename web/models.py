@@ -80,7 +80,7 @@ class Etudiant(models.Model):
     sport_pratique=models.CharField(max_length=70,blank=True, null=True)
     
     def __str__(self):
-        return self.prenom 
+        return self.prenom
     
 
 
@@ -125,6 +125,8 @@ class Note(models.Model):
     periode=models.ForeignKey(Periode,on_delete=models.CASCADE)
     matiere=models.ForeignKey(Matiere,on_delete=models.CASCADE)
     etudiant=models.ManyToManyField(Etudiant,through="contenir")
+    class Meta:
+        unique_together=[("annee_scolaire","classe","periode","matiere")]
     
     def __str__(self):
         return f"note" + " " +str(self.matiere.matiere) + " "+"periode :"+" " +self.periode.periode+" "+"classe :"+" "+ str(self.classe)

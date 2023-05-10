@@ -2,18 +2,31 @@
 
 
 {% block content %}
-<form action="{% url 'bulletin' %}" method="get">
-    <label for="">Classe :</label>
-    <input type="text" class="form-control" name="classe" required>
-    <br>
-    <label for="">Periode :</label>
-    <input type="text" class="form-control" name="periode" required>
-    <br>
-    <label for="">Matricule :</label>
-    <input type="number" class="form-control" name="etudiant" min="0" required>
-    <br>
-    <div class="text-center">
-        <button  class="btn btn-info" type="submit">Afficher</button>
+<div class="row">
+    <div class="col-md-3">
+
     </div>
-</form>
+    <div class="col-md-6">
+        <div class="text-center">
+            <h1 class="text-danger">Afficher Bulletin</h1>
+        </div>
+        <br><br><br><br><br>
+        <form action="{% url 'bulle' %}">
+            <label for="">Classe :</label>
+            <select name="classe" class="form-control">
+                <option>---------------------------</option>
+                {% for i in classe %}
+                <option value="{{i.codeC}}">{{i.classe}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <div class="text-center">
+                <button class="btn btn-info" type="submit">Suivant</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3">
+
+    </div>
+</div>
 {% endblock content %}

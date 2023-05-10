@@ -20,23 +20,23 @@ class FiliereForm(forms.ModelForm):
         }
         labels={'secteur':'Secteur'}
 
+
         
 class ClasseForm(forms.ModelForm):
     codeC = forms.CharField(label='Code Classe :',widget = forms.TextInput(attrs={'class':'form-control'}))
     classe = forms.CharField(label='Classe :',widget = forms.TextInput(attrs={'class':'form-control'}))
+   
     class Meta:
         model= Classe
-        fields=['codeC','annee_scolaire','filiere','niveau','type_formation','classe']
+        fields=['codeC','filiere','niveau','type_formation','classe']
         widgets = {
             'filiere'  :   forms.Select(attrs={'class':'form-control'}),
             'niveau'  :   forms.Select(attrs={'class':'form-control'}),
-            'annee_scolaire'  :   forms.Select(attrs={'class':'form-control'}),
             'type_formation'  :   forms.Select(attrs={'class':'form-control'}),
         }
         labels={
             'niveau' :'Niveau',
             'filiere':'Filière',
-            'annee_scolaire' :'Année Scolaire',
             'type_formation' :'Type formation',
             }
         
