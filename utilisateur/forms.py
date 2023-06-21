@@ -14,10 +14,11 @@ class InscriptionForm(UserCreationForm):
     
     class Meta:
          model = Utilisateur
-         fields = ['username','last_name','first_name','email','telephone','profile','password1','password2']
+         fields = ['username','last_name','first_name','email','telephone','profile','password1','password2','is_staff']
          
          widgets = {
             'profile': forms.FileInput(attrs={'class':'form-control'}),
+            'is_staff': forms.CheckboxInput(attrs={}),
         }
          
 class PasswordChangeForm(PasswordChangeForm):

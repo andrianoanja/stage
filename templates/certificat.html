@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form action="{% url 'certificat1' %}">
+            <div class="text-center">
+                <h1 class="text-danger">{{titre}}</h1>
+            </div>
+            <br><br>
+            <label>Matricule :</label>
+            <input type="number" class="form-control" name="matricule">
+            <label>Type Formation :</label>
+            <select name="typefo" class="form-control">
+                <option>-----------------------------</option>
+                
+                {% for i in typef %}
+                    <option value="{{i.codeTF}}">{{i.type_formation}}</option>
+                {% endfor %}
+                    
+            </select>
+            <br><br>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Afficher</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+{% endblock content %}

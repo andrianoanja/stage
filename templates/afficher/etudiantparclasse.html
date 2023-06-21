@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="text-center">
+    <h1 class="text-danger">LISTE DES APPRENANTS PAR CLASSE</h1>
+  </div>
+  <br><br><br>
+ <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <form action="{% url 'classapr1' %}">
+            <label for="">Année Scolaire :</label>
+            <input type="text" name="annee" class="form-control">
+            <br>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Suivant</button>
+              </div>
+          </form>
+    </div>
+    <div class="col-md-3"></div>
+ </div>
+{% endblock content %}

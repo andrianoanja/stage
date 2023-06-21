@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="text-center">
+    <h1 class="text-danger">LISTE DES APPRENANTS EN CLASSE DE {{classe}}</h1>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="col-md-6">
+        
+    </div>
+    <div class="col-md-6">
+        <div class="card-body row  ">
+            <div class="col">
+            </div>
+            <div class="col-auto">
+                <form action="{% url 'liste' %}">
+                  <input type="hidden" name="classe" value="{{classe}}">
+                  <button type="submit" class="btn btn-danger">Exporter en PDF</button>
+                </form>
+            </div>
+        </div>
+      </div>
+</div>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <tr>
+      <th>Image</th>
+      <th>N°</th>
+      <th>Matricule</th>
+      <th>Nom</th>
+      <th>Prenom(s)</th>
+      <th>Date de Naissance</th>
+      <th>Position</th>
+      <th>Sexe</th>
+      <th>Actions</th>
+    </tr>
+    
+    {% for i in apprenants %}
+      <tr>
+        <td><img src="{{i.image.url}}" alt="" width="50" height="50"></td>
+        <td>{{i.numero}}</td>
+        <td>{{i.matricule}}</td>
+        <td>{{i.nom}}</td>
+        <td>{{i.prenom}}</td>
+        <td>{{i.date_de_naissance}}</td>
+        <td>{{i.position}}</td>
+        <td>{{i.sexe}}</td>
+        <td>
+          <div class="d-flex justify-content-around">
+            <a class="save btn btn-warning" href="{% url 'detail' i.id %}" > <i class="fa fa-eye"></i> Voir</a>
+            <a class="save btn btn-info" href="{% url 'modifapprenant' i.id %}"> <i class="fa fa-edit"></i>Modifier</a>
+
+        </div>
+        </td>
+      </tr>
+    {% endfor %}
+      
+  </table>
+</div>
+<br>
+Arrêtée a présente liste au nombre de {{apprenants.count}} apprenants dont 
+
+{% if filles == 0 or filles == 1 %}
+{{filles}} fille
+{% else %}
+{{filles}} filles
+{% endif %}
+   et 
+   
+   {% if garçons == 0  or garçons == 1 %}
+   {{garçons}} garçon.
+   {% else %}
+   {{garçons}} garçons.
+   {% endif %}
+    
+   
+{% endblock content %}

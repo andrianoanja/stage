@@ -7,10 +7,9 @@
 </div>
 <br>
 {% include 'message.html' %}
-
 <form action="" method="POST">
     {% csrf_token %}
-    <label for="">Etudiant :</label>
+    <label for="">Apprenant :</label>
     <select id="" class="form-control" name="etudiant">
         <option>---------------------------</option>
         {% for i in etudiants %}
@@ -29,7 +28,7 @@
     <tr>
         <th>Numero</th>
         <th>Nom et Prenoms</th>
-        <th>Nombres d'absence</th>
+        <th>Nombres heures d'absence</th>
         <th>Action</th>
     </tr>
 
@@ -39,7 +38,7 @@
         <td>{{i.etudiant.numero}}</td>
         <td>{{i.etudiant.nom}} {{i.etudiant.prenom}}</td>
         <td>{{i.nb_abscence}} heures</td>
-        <td><a href="" id="{{i.etudiant.id}}" class="btn btn-info">Modifier</a></td>
+        <td><a href="{% url 'modifass' i.id clas i.periode_id %}"  class="btn btn-info">Modifier</a></td>
     </tr>
     {% endfor %}
     {% endif %}

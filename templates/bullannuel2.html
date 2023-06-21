@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="text-center">
+    <h1 class="text-danger">Bulletin Annuelle</h1>
+  </div>
+  <br><br>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <form action="{% url 'bullann3' %}">
+          <input type="hidden" name="an" value="{{annee}}">
+          <input type="hidden" value="{{typefo}}" name="form">
+           <label>Apprenant :</label>
+           <select name="etudiant" class="form-control">
+            <option>-------------------------</option>
+            
+            {% for i in etudiants %}
+              <option value="{{i.id}}">{{i.numero}}-{{i.nom}} {{i.prenom}}</option>
+            {% endfor %}
+              
+           </select>
+           <input type="hidden" name="classy" value="{{classe}}">
+            <br><br>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Afficher</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+{% endblock content %}

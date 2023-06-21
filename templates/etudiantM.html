@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="" method="post">
+<div class="text-center">
+    <h1 class="text-danger">AJOUTER APPRENANT AVEC MATRICULE</h1>
+</div>
+<form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% for i in etudiant %}
     <label for="">Matricule : </label>
@@ -23,8 +26,86 @@
     <input type="date" class="form-control" value="{{i.date_de_naissance | date:'Y-m-d' }}"disabled >
     <label for="">Sexe : </label>
     <input type="hidden" class="form-control" value="{{i.sexe}}" name="sexe" >
-    <input type="text" class="form-control" value="{{i.sexe}}" disabled >
+    <input type="text" class="form-control" value="{{i.sexe}}" disabled>
+
+    <label for="">Ecole d'origine : </label>
+    <input type="hidden" class="form-control" value="{{i.ecole_origine}}" name="ecole_origine" >
+    <input type="text" class="form-control" value="{{i.ecole_origine}}" disabled>
+
+    <label for="">Adresse : </label>
+    <input type="hidden" class="form-control" value="{{i.adresse}}" name="adresse" >
+    <input type="text" class="form-control" value="{{i.adresse}}" disabled>
+
+    <label for="">Telephone : </label>
+    <input type="hidden" class="form-control" value="{{i.telephone}}" name="telephone" >
+    <input type="text" class="form-control" value="{{i.telephone}}" disabled>
+
+    <label for="">Email : </label>
+    <input type="hidden" class="form-control" value="{{i.email}}" name="email" >
+    <input type="text" class="form-control" value="{{i.email}}" disabled>
+
+    <label for="">Père : </label>
+    <input type="hidden" class="form-control" value="{{i.nom_du_pere}}" name="nom_du_pere" >
+    <input type="text" class="form-control" value="{{i.nom_du_pere}}" disabled>
+
+    <label for="">Profession : </label>
+    <input type="hidden" class="form-control" value="{{i.profession_pere}}" name="profession_pere" >
+    <input type="text" class="form-control" value="{{i.profession_pere}}" disabled>
+
+    <label for="">Mère : </label>
+    <input type="hidden" class="form-control" value="{{i.nom_de_la_mere}}" name="nom_de_la_mere" >
+    <input type="text" class="form-control" value="{{i.nom_de_la_mere}}" disabled>
+
+    <label for="">Profession : </label>
+    <input type="hidden" class="form-control" value="{{i.profession_mere}}" name="profession_mere" >
+    <input type="text" class="form-control" value="{{i.profession_mere}}" disabled>
+
+    <label for="">Adresse des Parents : </label>
+    <input type="hidden" class="form-control" value="{{i.adresse_des_parents}}" name="adresse_des_parents" >
+    <input type="text" class="form-control" value="{{i.adresse_des_parents}}" disabled>
+
+    <label for="">Correspondant : </label>
+    <input type="hidden" class="form-control" value="{{i.nom_du_correspondant}}" name="nom_du_correspondant" >
+    <input type="text" class="form-control" value="{{i.nom_du_correspondant}}" disabled>
+
+    <label for="">Profession : </label>
+    <input type="hidden" class="form-control" value="{{i.profession_correspondant}}" name="profession_correspondant" >
+    <input type="text" class="form-control" value="{{i.profession_correspondant}}" disabled>
+
+    <label for="">Adresse Correspondant : </label>
+    <input type="hidden" class="form-control" value="{{i.adresse_des_correspondant}}" name="adresse_des_correspondant" >
+    <input type="text" class="form-control" value="{{i.adresse_des_correspondant}}" disabled>
+
+    <label for="">Sport Préféré : </label>
+    <input type="hidden" class="form-control" value="{{i.sport_preferer}}" name="sport_preferer" >
+    <input type="text" class="form-control" value="{{i.sport_preferer}}" disabled>
+
+    <label for="">Sport Pratiqué : </label>
+    <input type="hidden" class="form-control" value="{{i.sport_pratique}}" name="sport_pratique" >
+    <input type="text" class="form-control" value="{{i.sport_pratique}}" disabled>
+
+    <label for="">Nombre des frères : </label>
+    <input type="hidden" class="form-control" value="{{i.nombre_de_frere}}" name="nombre_de_frere" >
+    <input type="text" class="form-control" value="{{i.nombre_de_frere}}" disabled>
+
+    <label for="">Nombre des Soeurs : </label>
+    <input type="hidden" class="form-control" value="{{i.nombre_de_soeur}}" name="nombre_de_soeur" >
+    <input type="text" class="form-control" value="{{i.nombre_de_soeur}}" disabled>
+
+    <label for="">Rang dans la famille : </label>
+    <input type="hidden" class="form-control" value="{{i.rang_dans_la_famille}}" name="rang_dans_la_famille" >
+    <input type="text" class="form-control" value="{{i.rang_dans_la_famille}}" disabled>
     {% endfor %}
+    <label for="">Position :</label>
+    <select name="position" class="form-control" required>
+        <option value="" selected="">---------</option>
+        <option value="Passant">Pasant(e)</option>
+        <option value="Redoublant">Redoublant(e)</option>
+        <option value="TRP">Tansfert Passant</option>
+        <option value="TRR">Transfert Redoublant</option>
+      </select>
+    <label for="">Image :</label>
+    <input type="file" name="image" class="form-control" accept="image/*" required>
     <br>
     <br>
     <div class="text-center">

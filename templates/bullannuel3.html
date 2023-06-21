@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{moys1}}
+  <div class="text-center">
+    <h1 class="text-danger">Bulletin Annuelle</h1>
+  </div>
+  <br><br>
+<div class="text-center">
+  ANNEE DE FORMATION : {{annee}}
+</div>
+<br>
+<div class="row">
+  <div class="col-md-4 d-flex justify-content-center" style="border: 1px solid;"><h1>BULLETIN SCOLAIRE</h1></div>
+  {% load static %}
+  <div class="col-md-4 d-flex justify-content-center "><img src="{% static 'images/logo/logo.jpg' %}" alt=""></div>
+  <div class="col-md-4 d-flex justify-content-center" style="border: 1px solid;"><h1>RESULTATS : ANNUEL</h1></div>
+</div>
+<hr>
+<div class="text-center">
+  <h5 class="text-success">LYCEE TECHNIQUE PROFESSIONNELLE DU GENIE CIVIL MAHAMSINA</h5>
+</div><br><br>
+<div class="row">
+  <div class="col-md-6">TYPE FORMATION : {{tformation}}</div>
+  <div class="col-md-6 d-flex justify-content-end">Secteur : 
+  {% for i in classy %}
+    {{i.filiere.secteur}}
+  {% endfor %}
+    </div>
+  <hr>
+  <div class="col-md-6">Niveau : {{classe}}</div>
+  <hr>
+  <div class="col-md-6 d-flex justify-content-end">Filiere : 
+  {% for i in classy %}
+    {{i.filiere}}
+  {% endfor %}
+    </div>
+</div>
+<hr>
+
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-10">{% for y in apprenant %}
+    Nom et Prenoms : {{y.nom}} {{y.prenom}}
+    </div>
+    <hr><hr>
+    <div class="col-md-2"></div>
+    <div class="col-md-10">IM : {{y.matricule}}  N° : {{y.numero}}</div>
+    {% endfor %}
+</div>
+<hr>
+<div class="text-center">
+  <h4 class="text-danger">CONSERVEZ CETTE EVALUATION. AUCUN DUPLICATA NE SERA REMIS</h4>
+</div>
+<hr>
+<table class="table table-bordered">
+{{ma1}}
+  {% for i in moys %}
+    <tr>
+      <td>MOYENNE {{i.1}}</td>
+      <td>{{i.0|floatformat:2}}</td>
+      <td>Sur 20</td>
+    </tr>
+  {% endfor %}
+  <tr><td></td></tr>
+  <tr>
+    <td>Moyenne Génerale Annuelle</td>
+    <td>{{nbs|floatformat:2}}</td>
+    <td>Sur 20</td>
+  </tr>
+  <tr>
+    <td>Rang</td>
+    <td>{{bulla}}</td>
+    <td>Sur {{etu_count}} Apprenants</td>
+  </tr>
+  <tr>
+    <td>Assiduité</td>
+    <td>{{absence}}</td>
+    <td>Heures d'absence</td>
+  </tr>
+
+</table>
+<br>
+<table class="table table-bordered">
+  
+</table>
+{% endblock content %}
+

@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 
-
+{% if user.is_staff %}
 {% block content %}
 <div class="text-center">
-    <h1 class="text-danger">{{titre}} Année Scolaire : {{annee}}</h1>
+    <h1 class="text-danger">{{titre}} ANNEE SCOLAIRE : {{annee}}</h1>
 </div>
 <br>
 {% include 'message.html' %}
+
 <div class="row">
     <div class="col-md-3 p-2">
         <div class="card ">
@@ -26,10 +27,11 @@
                 <div class="text-center">
                     <div class="card-title" style="font-size: 20px;color: green;">{{x.matiere.matiere}}</div>
                     <div class="card-text" style="color: red;">{{x.classe}}</div><br>
-                    <div class="card-text" style="color: red;">{{x.matiere.filiere}} ({{x.classe.type_formation_id}})</div><br>
+                    <div class="card-text" style="color: red;">{{x.matiere.filiere}} ({{x.classe.type_formation_id}})
+                    </div><br>
                     <div class="card-text" style="color: red;">{{x.periode}}</div><br>
                     <!-- <div class="card-text" style="color: red;">{{x.annee_scolaire}}</div> -->
-                    <a class="btn btn-primary" href="{% url 'ajN' x.id %}">Remplire le fiche de notes</a>
+                    <a class="btn btn-primary" href="{% url 'ajN' x.id %}">Afficher</a>
                 </div>
             </div>
         </div>
@@ -39,3 +41,36 @@
 </div>
 
 {% endblock content %}
+{% else %}
+{% block content1 %}
+<div class="text-center">
+    <h1 class="text-primary">{{titre}} ANNEE SCOLAIRE : {{annee}}</h1>
+</div>
+<br>
+{% include 'message.html' %}
+<div class="row">
+
+    {% for x in note %}
+    <div class="col-md-3 p-2">
+        <div class="card">
+
+            <div class="card-body">
+                <div class="text-center">
+                    <div class="card-title" style="font-size: 20px;color: green;">{{x.matiere.matiere}}</div>
+                    <div class="card-text" style="color: red;">{{x.classe}}</div><br>
+                    <div class="card-text" style="color: red;">{{x.matiere.filiere}} ({{x.classe.type_formation_id}})
+                    </div><br>
+                    <div class="card-text" style="color: red;">{{x.periode}}</div><br>
+                    <!-- <div class="card-text" style="color: red;">{{x.annee_scolaire}}</div> -->
+                    <a class="btn btn-primary" href="{% url 'ajN' x.id %}">Remplir le fiche de notes</a>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock content1 %}
+
+{% endif %}

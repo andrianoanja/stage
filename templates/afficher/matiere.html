@@ -4,13 +4,12 @@
 {% include 'message.html' %}
 <div class="col-sm-12">
     <div class="text-center">
-        <h1 class="text-success"> Liste  Matières</h1>
+        <h1 class="text-success"> LISTE MATIERE</h1>
     </div>
     <div class="row">
         <div class="col-md-6">
             <div class="card-body">
    
-    <a href="" class="btn btn-danger">Telecharger PDF<i class="fa fa-download"></i></a>
    
     </div>
     </div>
@@ -39,11 +38,10 @@
                 <td>{{x.coeff}}</td>
                 <td>
                     <div class="d-flex justify-content-around">
-                        <a class="save btn btn-warning" href=""> <i class="fa fa-eye"></i> Voir</a>
-                        <a class="save btn btn-info" href=""> <i class="fa fa-edit"></i>
+                    
+                        <a class="save btn btn-info" href="{% url 'modifmatiere' x.id %}"> <i class="fa fa-edit"></i>
                             Modifier</a>
-                        <a class="save btn btn-danger" href=""> <i class="fa fa-trash-o"></i>
-                            Suprimer</a>
+                     
                     </div>
                 </td>
             </tr>

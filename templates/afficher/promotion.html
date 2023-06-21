@@ -4,14 +4,12 @@
 {% include 'message.html' %}
 <div class="col-sm-12">
     <div class="text-center">
-        <h1 class="text-success"> Liste Classe</h1>
+        <h1 class="text-success"> LISTE CLASSE</h1>
     </div>
     <div class="row">
         <div class="col-md-6">
             <div class="card-body">
-   
-    <a href="" class="btn btn-danger">Telecharger PDF<i class="fa fa-download"></i></a>
-   
+
     </div>
     </div>
     <form action="" class="col-md-6">
@@ -38,8 +36,7 @@
                 <td>{{x.classe}}</td>
                 <td>
                     <div class="d-flex justify-content-around">
-                        <a class="save btn btn-warning" href=""> <i class="fa fa-eye"></i> Voir</a>
-                        <a class="save btn btn-info" href=""> <i class="fa fa-edit"></i>
+                        <a class="save btn btn-info" href="{% url 'modifclasse' x.codeC %}"> <i class="fa fa-edit"></i>
                             Modifier</a>
                        
                     </div>

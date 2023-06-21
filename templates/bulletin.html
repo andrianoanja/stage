@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-{{annee}}
+<div class="b" style="border: 1px solid; padding: 20px;">
+    {{annee}}
 {% for i in cl %}
 <div class="text-center">
     Année de Formation : {{i.annee_scolaire}}
@@ -9,7 +10,9 @@
 <div class="d-flex justify-content-between">
     <h1>BULLETIN SCOLAIRE</h1>
 
-    <h1>RESULTATS : {{periode}} </h1>
+    <h1>RESULTATS : {% for i in per %}
+        {{ i.periode }}
+    {% endfor %} </h1>
 </div>
 <br>
 {% for x in cl %}
@@ -19,7 +22,7 @@
 </div>
 <br>
 <div class="d-flex justify-content-between">
-    <div class="a">Niveau : {{x.classe}} {{x.filiere_id}}</div>
+    <div class="a">Niveau : {{x.classe}}</div>
     <div class="b">Métier/Filière : {{x.filiere}}</div>
 </div>
 {% endfor %}
@@ -57,7 +60,7 @@
         <td>{{x.moyenne_par_matiere}}</td>
         <td>{{x.note.matiere.coeff}}</td>
         <td>{{x.note_avec_coeff}}</td>
-        <td>{{x.obs}}</td>
+        <td>{{x.observation}}</td>
     </tr>
     {% endfor %}
     <tr>
@@ -73,7 +76,7 @@
 <table class="table table-bordered">
     <tr>
         <th>MOYENNE GENERALE</th>
-        <th>{{moy}}/20</th>
+        <th>{{moy|floatformat:2}}/20</th>
     </tr>
     <tr>
         <td>RANG</td>
@@ -107,4 +110,5 @@
     {% endfor %} 
     <button class="btn btn-danger" type="submit">Exporter en PDF</button>
 </form>
+</div>
 {% endblock content %}

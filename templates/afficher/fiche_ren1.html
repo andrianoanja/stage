@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="b" style="border: 1px solid; padding: 20px ;">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <img src="{% static 'images/logo/logo.jpg' %}" class="img-fluid">
+        </div>
+        <div class="col-md-5">
+           <div class="d-flex justify-content-end">
+            L.T.P.G.C MAHAMASINA <br><br>
+            Tel: 24 384 55
+           </div>
+        </div>
+        <div class="col-md-1"></div>
+    
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <div class="d-flex justify-content-start">
+                <br><br><br><br>
+                I.M : {{apprenant.matricule}} <br><br>
+                ISS :
+               </div>  
+        </div>
+        <div class="col-md-5 d-flex justify-content-end">
+           <img src="{{apprenant.image.url}}" class="img-fluid" width="150" height="120">
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <br><br>
+    <div class="text-center">
+        <h1 class="text-info">Fiche de Renseignements</h1>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+           <div class="a" style="font-size: 20px;">
+            Nom : {{apprenant.nom}} <br><br>
+            Prenoms : {{apprenant.prenom}} <br><br>
+            Date de naissance : {{apprenant.date_de_naissance}} <br><br>
+            Ecole d'origine : {{apprenant.ecole_origine}} <br><br>
+            Nom du Père : {{apprenant.nom_du_pere}} <br><br>
+            Profession : {{apprenant.profession_pere}} <br><br>
+            Nom  de la Mère : {{apprenant.nom_de_la_mere}} <br><br>
+            Profession : {{apprenant.profession_mere}} <br><br>
+            Adresse des parents : {{apprenant.adresse_des_parents}} <br><br>
+            Nom du correspondant : {{apprenant.nom_du_correspondant}} <br><br>
+            Profession : {{apprenant.profession_correspondant}} <br><br>
+            Adresse de correspondant : {{apprenant.adresse_des_correspondant}} <br><br>
+            Nombre de frère : {{apprenant.nombre_de_frere}} Soeur : {{apprenant.nombre_de_soeur}} <br><br>
+            Rang dans la famille : {{apprenant.rang_dans_la_famille}} <br><br>
+            Sport préféré : {{apprenant.sport_preferer}} Sport prartiqué : {{apprenant.sport_pratique}}
+           </div>
+    
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+{% endblock content %}

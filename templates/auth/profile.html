@@ -1,38 +1,83 @@
 {% extends 'base.html' %}
 
-
+{% if user.is_staff %}
 {% block content %}
-<div class="col-md-8 offset-2">
-    <div class="white_shd full margin_bottom_30">
-       <div class="full graph_head">
-          <div class="text-center">
-             <h2 class="text-danger">Profile</h2>
-          </div>
-       </div>
-       <div class="full price_table padding_infor_info">
-          <div class="row">
-             <!-- user profile section --> 
-             <!-- profile image -->
-             <div class="col-lg-12">
-                <div class="full dis_flex center_text">
-                   <div class="profile_img"><img width="180" class="rounded-circle" src="{{user.profile.url}}" alt="#"></div>
-                   <div class="profile_contant">
-                      <div class="contact_inner">
-                         <h3>{{user.username}}</h3>
-                         <p><strong>Nom : </strong>{{user.last_name}}</p>
-                         <p><strong>Prenoms : </strong>{{user.first_name}}</p>
-                         <p><strong><i class="fa fa-envelope-o"></i></strong>: {{user.email}}</p>
-                         <p><strong><i class="fa fa-phone"></i></strong> : {{user.telephone}}</p><br>
-                         <p><a href="" class="btn btn-warning">Modifier Profile</a></p>
-                      </div>
-                      
-                   </div>
-                </div>
-        
-             </div>
-          </div>
-       </div>
-    </div>
- </div>
+<div class="row">
+   <div class="col-md-2"></div>
+   <div class="col-md-8 ">
+      <div class="white_shd full margin_bottom_30">
+         <div class="full graph_head">
+            <div class="text-center">
+               <h2 class="text-danger">Profile</h2>
+            </div>
+         </div>
+         <div class="full price_table padding_infor_info">
+            <div class="row">
+               <!-- user profile section --> 
+               <!-- profile image -->
+               <div class="col-lg-12">
+                  <div class="full dis_flex center_text">
+                     <div class="profile_img"><img width="180" class="rounded-circle" src="{{user.profile.url}}" alt="#"></div>
+                     <div class="profile_contant">
+                        <div class="contact_inner">
+                           <h3>{{user.username}}</h3>
+                           <p><strong>Nom : </strong>{{user.last_name}}</p>
+                           <p><strong>Prenoms : </strong>{{user.first_name}}</p>
+                           <p><strong><i class="fa fa-envelope-o"></i></strong>: {{user.email}}</p>
+                           <p><strong><i class="fa fa-phone"></i></strong> : {{user.telephone}}</p><br>
+                           <p><a href="" class="btn btn-warning">Modifier Profile</a></p>
+                        </div>
+                        
+                     </div>
+                  </div>
+          
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-md-2"></div>
+</div>
 {% endblock content %}
+{% else %}
+{% block content1 %}
+
+<div class="row">
+   <div class="col-md-2"></div>
+   <div class="col-md-8 ">
+      <div class="">
+         <div class="full graph_head">
+            <div class="text-center">
+               <h2 class="text-danger">Profile</h2>
+            </div>
+         </div>
+         <div class="">
+            <div class="row">
+               <!-- user profile section --> 
+               <!-- profile image -->
+               <div class="col-lg-12">
+                  <div class="full dis_flex center_text">
+                     <div class="profile_img"><img width="180" class="rounded-circle" src="{{user.profile.url}}" alt="#"></div>
+                     <div class="profile_contant">
+                        <div class="contact_inner">
+                           <h3>{{user.username}}</h3>
+                           <p><strong>Nom : </strong>{{user.last_name}}</p>
+                           <p><strong>Prenoms : </strong>{{user.first_name}}</p>
+                           <p><strong><i class="fa fa-envelope-o"></i></strong>: {{user.email}}</p>
+                           <p><strong><i class="fa fa-phone"></i></strong> : {{user.telephone}}</p><br>
+                           <p><a href="" class="btn btn-warning">Modifier Profile</a></p>
+                        </div>
+                        
+                     </div>
+                  </div>
+          
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-md-2"></div>
+</div>
+{% endblock content1 %}
+{% endif %}
     

@@ -28,6 +28,15 @@
                 {% endfor %}       
             </select>
             <br>
+            <br>
+            <label for="">Enseignant :</label>
+            <select name="enseignant" class="form-control">
+                <option>--------------------</option>
+                {% for i in enseignants %}
+                    <option value="{{i.id}}">{{i.username}}</option>
+                {% endfor %}       
+            </select>
+            <br>
             <div class="text-center">
                 <button class="btn btn-primary" type="submit">Enregistrer</button>
             </div>

@@ -2,12 +2,12 @@
 {% for mess in messages %}
 
 <!-- <script>
-            
-            alert ("{{mess}}")
-            
+            alert ("{{mess}}") 
         </script> -->
-<div class="text-center">
-    <h6 class="text-danger">{{mess}}</h6>
+
+<div class="alert alert-warning alert-dismissible fade show display-5" role="alert">
+    <strong>{{mess}}</strong>
+    <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button> -->
 </div>
 
 {% endfor %}

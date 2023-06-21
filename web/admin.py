@@ -15,6 +15,10 @@ admin.site.register(Matier)
 admin.site.register(Note)
 admin.site.register(TypeFormation)
 admin.site.register(Abs)
+admin.site.register(Proviseur)
+admin.site.register(SG)
+admin.site.register(Censeur)
+admin.site.register(ChefDeTravaux)
 # admin.site.register(Contenir)
 
 
@@ -22,7 +26,7 @@ admin.site.register(Abs)
 class ContenirAdmin(admin.ModelAdmin):
     '''Admin View for Contenir'''
 
-    list_display = ('etudiant','DS1','DS2','exam','DS','moyenne_par_matiere','note_avec_coeff','obs')
+    list_display = ('etudiant','DS1','DS2','exam','DS','moyenne_par_matiere','note_avec_coeff')
 
 @admin.register(Etudiant)
 class EtudiantAdmin(admin.ModelAdmin):

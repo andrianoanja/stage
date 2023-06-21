@@ -4,14 +4,24 @@
 {% block content %}
 {% include 'message.html' %}
     <div class="text-center">
-        <h1 class="text-danger">Ajouter Autre utilisateur</h1>
+        <h1 class="text-danger">AJOUTER AUTRE UTILISATEUR</h1>
     </div>
     <br>
     <div class="col-md-8 offset-2">
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{form}}
-            <br>
+            {{form.as_p}}
+            <!-- <label for="">Permission :</label>
+            <select name="permission" class="form-control" multiple>
+                <option>---------------------</option>
+                
+                {% for i in permissions %}
+                    <option value="{{i.codename}}">{{i.name}}</option>
+                {% endfor %}
+                    
+            </select> -->
+                
+            <br><br><br>
             <div class="text-center">
                 <button class="btn btn-primary" type="submit">Enregistrer</button>
             </div>

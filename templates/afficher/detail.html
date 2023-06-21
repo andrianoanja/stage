@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .a {
+        color: black;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-6">
+        <img src="{{apprenant.image.url}}" class="img-fluid">
+    </div>
+    <div class="col-md-6">
+        <h1 class="text-danger">Nom et Prenons : <span class="a">{{apprenant.nom}} {{apprenant.prenom}}</span></h1>
+        <br><br>
+        <h1 class="text-danger">Classe : <span class="a">{{apprenant.classe}}</span></h1>
+        <br><br>
+        <h1 class="text-danger">N° : <span class="a">{{apprenant.numero}}</span></h1>
+        <br><br>
+        <h1 class="text-danger">Position :
+
+            {% if apprenant.position == "P" %}
+            
+            {% if apprenant.sexe == "Feminin" %}
+            <span class="a">Passante</span>
+            {% else %}
+            <span class="a">Passant</span> 
+            {% endif %}
+            {% elif apprenant.position == "R" %}
+            
+            {% if apprenant.sexe == "Feminin" %}
+            <span class="a">Redoublante</span>
+            {% else %}
+            <span class="a">Redoublant</span>
+            {% endif %}
+
+            {% elif apprenant.position == "TRP" %}
+            
+            {% if apprenant.sexe == "Feminin"  %}
+            <span class="a">Transfert Passante</span>  
+            {% else %}
+            <span class="a">Transfert Passant</span> 
+            {% endif %}
+                
+            {% else %}
+            
+            {% if apprenant.sexe == "Feminin" %}
+            <span class="a">Transfert Redoublante</span> 
+            {% else %}
+            <span class="a">Transfert Redoublant</span>
+            {% endif %}
+            {% endif %}
+        </h1>
+        <br><br>
+        <h1 class="text-danger">IM : <span class="a">{{apprenant.matricule}}</span></h1>
+    </div>
+</div>
+
+{% endblock content %}

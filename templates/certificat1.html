@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificat de scolarité</title>
+</head>
+<body>
+    <header>
+        <table>
+          <tr>
+            <th></th>
+            <th><img src="../static/images/republique.jpg" width="150" height="100"></th>
+            <th></th>
+          </tr>
+          <tr>
+            <td><img src="../static/images/logo/logo.jpg" alt="" width="100" height="100"></td>
+            <td></td>
+            <th style="font-size: 15px;">LYCEE TECHNIQUE PROFESSIONNEL DU GENIE CIVIL MAHAMASINA</th>
+          </tr>
+          <tr></tr>
+          <tr>
+            <th></th>
+            <th style="font-size: 17px;">{{titre}}</th>
+            <th></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>ANNEE DE FORMATION : {{annee}}</th>
+            <th></th>
+          </tr>
+          <tr>
+            <td></td>
+            <th>
+            {% for i in formation %}
+                {{i.type_formation}}
+            {% endfor %}
+                </th>
+            <td></td>
+          </tr>
+        </table>
+      </header>
+      <br><br>
+      <div class="text" style="font-size: 17px;">
+        Département de la SURVEILLANCE GENERALE <br>
+      Le PROVISEUR du LYCEE TECHNIQUE PROFESSIONNEL DU GENIE CIVIL MAHAMASINA, soussigné, certifie que : <br><br>
+      
+      {% for i in apprenants %}
+        
+        {% if i.sexe == "Masculin" %}  
+      Le nommé : {{i.nom}} {{i.prenom}} <br>
+      {% else %}
+      La nommée : {{i.nom}} {{i.prenom}} <br>
+      {% endif %}
+      I.M : {{i.matricule}} <br>
+      {% if i.sexe == "Masculin" %} 
+      Né le : {{i.date_de_naissance}} à  {{i.lieu_de_naissance}} <br>
+      {% else %}
+      Née le : {{i.date_de_naissance}} à  {{i.lieu_de_naissance}} <br>
+      {% endif %}
+      {% if i.nom_du_pere == None %}
+      Fils de : __________________ <br>
+      {% else %}
+      Fils de : {{i.nom_du_pere}} <br>
+      {% endif %}
+      Et de {{i.nom_de_la_mere}} <br>
+      {% endfor %}
+        
+        {% for a in apprenant %}     
+      Est élève de mon etablissement et le fréquente régulièrement de {{a.date_joindre|date:"Y"}}<br>
+      {% endfor %}
+      {% for a in apprenants %}  
+      à {{a.date_joindre|date:"Y"}} classe : {{a.classe}} <br>
+      Filiere : {{a.classe.filiere}} <br><br>
+      {% endfor %}
+      En foi de quoi, le présent certificat lui est délivré pour servir et valoir ce que de droit.
+      </div>
+      <br><br>
+      <table style="font-size: 17px;">
+        <tr>
+            <th></th>
+            <td>Fait à Antananarivo, le __________________</td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <th></th>
+            <td>Le Proviseur</td>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr>
+            <th></th>
+            <td>{{prov}}</td>
+        </tr>
+      </table>
+</body>
+</html>

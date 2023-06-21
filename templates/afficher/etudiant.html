@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% include 'message.html' %}
-{{aa}}
+
+
 <div class="col-sm-12">
     <div class="text-center">
-        <h1 class="text-success"> Liste Etudiants</h1>
+        <h1 class="text-success"> LISTE DES APPRENANTS</h1>
     </div>
+    {% include 'message.html' %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -30,8 +31,8 @@
         <div class="col-md-6">
             <div class="card-body">
 
-                <a href="" class="btn btn-danger">Telecharger PDF<i class="fa fa-download"></i></a>
-
+                <a href="{% url 'classapr' %}" class="btn btn-danger">Liste des apprenants par classe<i class=""></i></a>
+                <a href="{% url 'fiche_ren' %}" class="btn btn-info">Fiche de Renseignements<i class=""></i></a>
             </div>
         </div>
         <form action="" class="col-md-6">
@@ -64,8 +65,8 @@
                 <td>{{x.classe}}</td>
                 <td>
                     <div class="d-flex justify-content-around">
-                        <a class="save btn btn-warning" href=""> <i class="fa fa-eye"></i> Voir</a>
-                        <a class="save btn btn-info" href=""> <i class="fa fa-edit"></i>Modifier</a>
+                        <a class="save btn btn-warning" href="{% url 'detail' x.id %}"> <i class="fa fa-eye"></i> Voir</a>
+                        <a class="save btn btn-info" href="{% url 'modifapprenant' x.id %}"> <i class="fa fa-edit"></i>Modifier</a>
 
                     </div>
                 </td>

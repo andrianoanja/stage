@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  
+<div class="col-sm-12">
+    <div class="text-center">
+        <h1 class="text-success"> UTILISATEURS </h1>
+    </div>
+    {% include 'message.html' %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card-body">
+   
+    <a href="{% url 'inscire' %}" class="btn btn-primary">Ajouter<i class=""></i></a>
+   
+    </div>
+    </div>
+    <form action="" class="col-md-6">
+        <div class="card-body row  ">
+            <div class="col">
+               <input type="serch" class="form-control form-control-borderless" name="serch" >
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary"> <i class="fa fa-search"></i></button>
+        </div>
+        </div>
+    </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr id="tete">
+                <th>utilisateur</th>
+                <th>Nom</th>
+                <th>Prenoms</th>
+                <th>Telephone</th>
+                <th>Type</th>
+                <th>Action</th>
+            </tr>
+            {% for x in utilisateurs %}
+            <tr>
+                <td>{{x.username}}</td>
+                <td>{{x.last_name}}</td>
+                <td>{{x.first_name}}</td>
+                <td>{{x.telephone}}</td>
+                <td>
+                {% if x.is_staff == True %}
+                    Staff
+                {% else %}
+                    Professeur
+                {% endif %}
+                    </td>
+                <td>
+                    <div class="d-flex justify-content-around">
+                        <a class="save btn btn-info" href=""> <i class="fa fa-edit"></i>
+                            Modifier</a>
+                        
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-3 offset-md-4">
+            <ul class="pagination">
+                {% if chefs.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ chefs.previous_page_number }}">Precedent</a>
+                </li>
+                {% endif %}
+                <li class="page-item active">
+                    <a class="page-link" href="?page={{ chefs.number }}">{{ chefs.number }}</a>
+                </li>
+
+                {% if chefs.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ chefs.next_page_number }}">Suivant</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+{% endblock content %}

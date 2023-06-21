@@ -1,57 +1,148 @@
 {% extends 'base.html' %}
 
-
+{% if user.is_staff %}
 {% block content %}
 <div class="text-center">
     <h1 class="text-danger">{{id}}</h1>
 </div>
 <br>
-<div class="col-md-8 offset-2">
-   <form action="" method="post">
-    {% csrf_token %}
-    <input type="hidden" value="{{id.id}}" class="form-control" name="note">
-    <label for="">Etudiant :</label>
-    <select name="etudiant" id="" class="form-control">
-        <option >-----------------------------------------</option>
-        {% for x in etudiants %}
-        <option value="{{x.id}}">{{x.numero}}-{{x.nom}} {{x.prenom}}</option>
-        {% endfor %} 
-    </select>
-    {{form}}
-    <br>
-    <div class="text-center">
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
-    </div>
-   </form>
+
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <!-- <div class="col-md-8">
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" value="{{id.id}}" class="form-control" name="note">
+            <label for="">Etudiant :</label>
+            <select name="etudiant" id="" class="form-control">
+                <option>-----------------------------------------</option>
+                {% for x in etudiants %}
+                <option value="{{x.id}}">{{x.numero}}-{{x.nom}} {{x.prenom}}</option>
+                {% endfor %}
+            </select>
+            {{form}}
+            <br>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </div>
+        </form>
+    </div> -->
+    <div class="col-md-2"></div>
 </div>
 <h1 class="text-danger">{{mess}}</h1>
 <br>
-<table class="table table-bordered">
-    <tr>
-        <th>Numero</th>
-        <th>Nom et Prenoms</th>
-        <th>DS1</th>
-        <th>DS2</th>
-        <th>DS</th>
-        <th>Exam</th>
-        <th>Total</th>
-        <th>Moyenne</th>
-        <th>Action</th>
-    </tr>
-    {% for x in cc %}
-    <tr>
-        <td>{{x.etudiant.numero}}</td>
-        <td>{{x.etudiant.nom}} {{x.etudiant.prenom}}</td>
-        <td>{{x.DS1}}</td>
-        <td>{{x.DS2}}</td>
-        <td>{{x.DS}}</td>
-        <td>{{x.exam}}</td>
-        <td>{{x.note_avec_coeff}}</td>
-        <td>{{x.moyenne_par_matiere}}</td>
-        <td><a href="{% url 'modifN' x.id x.note_id %}" class="btn btn-warning">Modifier</a></td>
-    </tr>
-    {% endfor %}
-</table>
-
-
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <th>Numero</th>
+            <th>Nom et Prenoms</th>
+            <th>DS1</th>
+            <th>DS2</th>
+            <th>Note J</th>
+            <th>Composition</th>
+            <th>Total</th>
+            <th>Moyenne</th>
+           
+            <!-- <th>Action</th>  -->
+         
+                
+            
+        </tr>
+        {% for x in cc %}
+        <tr>
+            <td>{{x.etudiant.numero}}</td>
+            <td>{{x.etudiant.nom}} {{x.etudiant.prenom}}</td>
+            <td>{{x.DS1}}</td>
+            <td>
+                {% if x.DS2 == None %}
+                __
+                {% else %}
+                {{x.DS2}}
+                {% endif %}
+            </td>
+            <td>{{x.DS}}</td>
+            <td>{{x.exam}}</td>
+            <td>{{x.note_avec_coeff|floatformat:2}}</td>
+            <td>{{x.moyenne_par_matiere|floatformat:2}}</td>
+            <!-- <td><a href="{% url 'modifN' x.id x.note_id %}" class="btn btn-warning">Modifier</a></td> -->
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock content %}
+
+{% else %} 
+{% block content1 %}
+
+
+<div class="text-center">
+    <h1 class="text-danger">{{id}}</h1>
+</div>
+<br>
+
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" value="{{id.id}}" class="form-control" name="note">
+            <label for="">Etudiant :</label>
+            <select name="etudiant" id="" class="form-control">
+                <option>-----------------------------------------</option>
+                {% for x in etudiants %}
+                <option value="{{x.id}}">{{x.numero}}-{{x.nom}} {{x.prenom}}</option>
+                {% endfor %}
+            </select>
+            {{form}}
+            <br>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<h1 class="text-danger">{{mess}}</h1>
+<br>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <th>Numero</th>
+            <th>Nom et Prenoms</th>
+            <th>DS1</th>
+            <th>DS2</th>
+            <th>Note J</th>
+            <th>Composition</th>
+            <th>Observation</th>
+            <th>Total</th>
+            <th>Moyenne</th>
+            <th>Action</th> 
+        </tr>
+        {% for x in cc %}
+        <tr>
+            <td>{{x.etudiant.numero}}</td>
+            <td>{{x.etudiant.nom}} {{x.etudiant.prenom}}</td>
+            <td>{{x.DS1}}</td>
+            <td>
+                {% if x.DS2 == None %}
+                __
+                {% else %}
+                {{x.DS2}}
+                {% endif %}
+            </td>
+            <td>{{x.DS}}</td>
+            <td>{{x.exam}}</td>
+            <td>{{x.observation}}</td>
+            <td>{{x.note_avec_coeff|floatformat:2}}</td>
+            <td>{{x.moyenne_par_matiere|floatformat:2}}</td>
+            <td><a href="{% url 'modifN' x.id x.note_id %}" class="btn btn-warning">Modifier</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock content1 %}
+
+{% endif %}

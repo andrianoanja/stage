@@ -9,9 +9,6 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card-body">
-
-                <a href="" class="btn btn-danger">Telecharger PDF<i class="fa fa-download"></i></a>
-
             </div>
         </div>
         <form action="" class="col-md-6">
@@ -38,9 +35,7 @@
                 <td>{{i.type_matiere}}</td>
                 <td>
                     <div class="d-flex justify-content-around">
-                        <a class="save btn btn-warning" href=""> <i class="fa fa-eye"></i> Voir</a>
-                        <a class="save btn btn-info" href=""> <i class="fa fa-edit"></i>
-                            Modifier</a>
+                        <a class="save btn btn-info" href="{% url 'modifmatier' i.id %}"> <i class="fa fa-edit"></i>Modifier</a>
                     </div>
                 </td>
             </tr>

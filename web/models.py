@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+
+from utilisateur.models import Utilisateur
 # Create your models here.
 class Secteur(models.Model):
     codeSect=models.CharField(max_length=20,primary_key=True)
@@ -29,6 +31,12 @@ class TypeFormation(models.Model):
     
     def __str__(self):
         return self.type_formation
+class Responsable(models.Model):
+    nom=models.CharField(max_length=50)
+    prenom=models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.nom +" "+self.prenom
 
 class Classe(models.Model):
     niveau=(
@@ -41,6 +49,7 @@ class Classe(models.Model):
     annee_scolaire=models.ForeignKey(AnneeScolaire,on_delete=models.CASCADE)
     filiere=models.ForeignKey(Filiere,on_delete=models.CASCADE)
     niveau=models.CharField(max_length=30,choices=niveau)
+    responsable=models.ForeignKey(Responsable,on_delete=models.CASCADE)
     classe=models.CharField(max_length=50)
 
     def __str__(self):
@@ -54,36 +63,42 @@ class Etudiant(models.Model):
         ('Feminin','Feminin'),
         ('Masculin','Masculin')
     )
-    
+    position=(
+        ('P','Pasant(e)'),
+        ('R','Redoublant(e)'),
+        ('TRP','Tansfert Passant'),
+        ('TRR','Transfert Redoublant')
+    )
+    position=models.CharField(max_length=100,choices=position)
     classe=models.ForeignKey(Classe,on_delete=models.CASCADE)
     sexe=models.CharField(max_length=20,choices=sexechoix)
     nom=models.CharField(max_length=100)
     prenom=models.CharField(max_length=100)
     date_de_naissance=models.DateField()
+    lieu_de_naissance=models.CharField(max_length=100,blank=True, null=True)
     image=models.ImageField(upload_to="etudiant",blank=True, null=True)
     ecole_origine=models.CharField(max_length=50,blank=True, null=True)
-    telephone=models.CharField(max_length=20,blank=True, null=True,unique=True)
-    email=models.EmailField(blank=True, null=True,unique=True)
-    adresse=models.CharField(max_length=120,blank=True, null=True)
-    nom_du_pere=models.CharField(max_length=100,blank=True, null=True)
-    profession_pere=models.CharField(max_length=70,blank=True, null=True)
-    nom_de_la_mere=models.CharField(max_length=100,blank=True, null=True)
-    profession_mere=models.CharField(max_length=70,blank=True, null=True)
-    adresse_des_parents=models.CharField(max_length=100,blank=True, null=True)
-    nom_du_correspondant=models.CharField(max_length=100,blank=True, null=True)
-    profession_correspondant=models.CharField(max_length=70,blank=True, null=True)
-    adresse_des_correspondant=models.CharField(max_length=100,blank=True, null=True)
+    telephone=models.CharField(max_length=20,blank=True, null=True,default=None)
+    email=models.EmailField(blank=True, null=True,default=None)
+    adresse=models.CharField(max_length=120,blank=True, null=True,default=None)
+    nom_du_pere=models.CharField(max_length=100,blank=True, null=True,default=None)
+    profession_pere=models.CharField(max_length=70,blank=True, null=True,default=None)
+    nom_de_la_mere=models.CharField(max_length=100,blank=True, null=True,default=None)
+    profession_mere=models.CharField(max_length=70,blank=True, null=True,default=None)
+    adresse_des_parents=models.CharField(max_length=100,blank=True, null=True,default=None)
+    nom_du_correspondant=models.CharField(max_length=100,blank=True, null=True,default=None)
+    profession_correspondant=models.CharField(max_length=70,blank=True, null=True,default=None)
+    adresse_des_correspondant=models.CharField(max_length=100,blank=True, null=True,default=None)
     nombre_de_frere=models.PositiveIntegerField(default=0)
     nombre_de_soeur=models.PositiveIntegerField(default=0)
     rang_dans_la_famille=models.PositiveIntegerField(default=1,blank=True, null=True)
     sport_preferer=models.CharField(max_length=70,blank=True, null=True)
     sport_pratique=models.CharField(max_length=70,blank=True, null=True)
+    date_joindre=models.DateField(auto_created=True,auto_now=True)
     
     def __str__(self):
         return self.prenom
     
-
-
 class Periode(models.Model):
     codeP=models.CharField(max_length=20,primary_key=True)
     periode=models.CharField(max_length=50)
@@ -124,31 +139,33 @@ class Note(models.Model):
     classe=models.ForeignKey(Classe,on_delete=models.CASCADE)
     periode=models.ForeignKey(Periode,on_delete=models.CASCADE)
     matiere=models.ForeignKey(Matiere,on_delete=models.CASCADE)
+    utilisateur=models.ForeignKey(Utilisateur,on_delete=models.PROTECT,blank=True, null=True)
     etudiant=models.ManyToManyField(Etudiant,through="contenir")
     class Meta:
         unique_together=[("annee_scolaire","classe","periode","matiere")]
     
     def __str__(self):
-        return f"note" + " " +str(self.matiere.matiere) + " "+"periode :"+" " +self.periode.periode+" "+"classe :"+" "+ str(self.classe)
+        return f"NOTE" + " " +str(self.matiere.matiere) + " "+"PERIODE :"+" " +self.periode.periode+" "+"CLASSE :"+" "+ str(self.classe)
   
       
 class Contenir(models.Model):
     note=models.ForeignKey(Note,on_delete=models.CASCADE)
     etudiant=models.ForeignKey(Etudiant,on_delete=models.CASCADE)
     DS1=models.DecimalField(max_digits=20,decimal_places=2,default=0)
-    DS2=models.DecimalField(max_digits=20,decimal_places=2,default=0)
+    DS2=models.FloatField(blank=True, null=True,default=None)
     exam=models.DecimalField(max_digits=20,decimal_places=2,default=0)
+    observation=models.CharField(max_length=200,blank=True, null=True)
     class Meta:
         unique_together=[("note","etudiant")]
     
     def DS(self):
-        if self.DS2==0:
+        if self.DS2== None:
             DS=self.DS1
         else:
-           DS=(self.DS1 + self.DS2)/2 
-        return DS
+           DS=(float(self.DS1) + (self.DS2))/2 
+        return float(DS)
     def moyenne_par_matiere(self):
-        return float( self.DS() + self.exam)/2
+        return float( self.DS() + float(self.exam))/2
     def note_avec_coeff(self):
         return float((self.moyenne_par_matiere()) * self.note.matiere.coeff)
     
@@ -168,3 +185,41 @@ class Abs(models.Model):
 
     class Meta:
         unique_together=[("periode","etudiant","annee_scolaire")]
+        
+class SG(models.Model):
+    sexechoix=(
+        ('Feminin','Feminin'),
+        ('Masculin','Masculin')
+    )
+    nom=models.CharField(max_length=50)
+    prenom=models.CharField(max_length=50)
+    sexe=models.CharField(max_length=20,choices=sexechoix)
+    
+    def __str__(self) -> str:
+        return self.nom +" "+self.prenom
+
+class ChefDeTravaux(models.Model):
+    sexechoix=(
+        ('Feminin','Feminin'),
+        ('Masculin','Masculin')
+    )
+    nom=models.CharField(max_length=50)
+    prenom=models.CharField(max_length=50)
+    sexe=models.CharField(max_length=20,choices=sexechoix)
+    
+    def __str__(self) -> str:
+        return self.nom +" "+self.prenom
+    
+class Censeur(models.Model):
+    nom=models.CharField(max_length=50)
+    prenom=models.CharField(max_length=50)
+    
+    def __str__(self) -> str:
+        return self.nom +" "+self.prenom
+
+class Proviseur(models.Model):
+    nom=models.CharField(max_length=50)
+    prenom=models.CharField(max_length=50)
+    
+    def __str__(self) -> str:
+        return self.nom +" "+self.prenom

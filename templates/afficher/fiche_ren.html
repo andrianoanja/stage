@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="text-danger">FICHE DE RENSEIGNEMENTS</h1>
+</div>
+<br><br>
+<form action="{% url 'fiche_ren1' %}">
+    <label>Type Formation :</label>
+    <select name="type_formation" class="form-control">
+        <option>-------------------</option>
+
+        {% for i in types %}
+        <option value="{{i.codeTF}}">{{i.type_formation}}</option>
+        {% endfor %}
+
+    </select>
+    <br>
+    <label>Matricule :</label>
+    <input type="number" class="form-control" name="matricule">
+    <br><br>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Afficher</button>
+    </div>
+</form>
+{% endblock content %}

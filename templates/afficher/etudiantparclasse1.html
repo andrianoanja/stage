@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="text-center">
+    <h1 class="text-danger">LISTE DES APPRENANTS PAR CLASSE</h1>
+  </div>
+  <br><br><br>
+ <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <form action="{% url 'classapr2' %}">
+          <label for="">Classe :</label>
+        <select class="form-control" name="classe">
+          <option>--------------------------</option>
+          
+          {% for classe in classes %}
+            <option value="{{classe.codeC}}">{{classe.classe}}</option>
+          {% endfor %}
+            
+        </select>
+        <br>
+        <div class="text-center">
+          <button class="btn btn-primary" type="submit">Afficher</button>
+        </div>
+        </form>
+    </div>
+    <div class="col-md-3"></div>
+ </div>
+{% endblock content %}
