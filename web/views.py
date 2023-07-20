@@ -12,10 +12,11 @@ from xhtml2pdf import pisa
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
+
 # Create your views here.
 # @staff_member_required(login_url="connexion")
 
-@login_required(login_url='connexion')    
+@staff_member_required(login_url="note")    
 def test(request):
     etudiants=Etudiant.objects.all().count()
     matieres=Matier.objects.all().count()
@@ -69,7 +70,7 @@ def test(request):
     return render(request,'index.html',{'etudiants':etudiants,'matieres':matieres,'promotions':clas,'filieres':filieres})
 
 #----------------------ajouter------------------------------------------------
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def ajouterSect(request):
     titre="AJOUTER SECTEUR"
     form = SecteurForm()
@@ -78,12 +79,13 @@ def ajouterSect(request):
         if form.is_valid():
            form.save()
            messages.success(request, "Enregistrement succes")
+           return redirect('affSect')
         else:
             messages.error(request, "Verifier les champs")
-        return redirect('affSect')      
+            return redirect('ajoutsect')      
     return render(request,'ajouter/ajouter.html',{'form': form,'titre':titre } )
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def ajouterF(request):
     titre="AJOUTER FILIERE"
     form = FiliereForm()
@@ -97,7 +99,7 @@ def ajouterF(request):
         return redirect('affF')      
     return render(request,'ajouter/ajouter.html',{'form': form,'titre':titre } )
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion")
 def ajouterAnnee(request):
     titre="AJOUTER ANNEE SCOLAIRE"
     form = AnneeScoForm()
@@ -111,7 +113,7 @@ def ajouterAnnee(request):
         return redirect('affAS')      
     return render(request,'ajouter/ajouter.html',{'form': form,'titre':titre } )
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def ajouterRes(request):
     titre="AJOUTER RESPONSABLE DE LA CLASSE"
     form = ResponsableForm()
@@ -125,7 +127,7 @@ def ajouterRes(request):
         return redirect('affResp')      
     return render(request,'ajouter/ajouter.html',{'form': form,'titre':titre } )
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def ajouterN(request):
     titre="AJOUTER CLASSE"
     annee=AnneeScolaire.objects.all().last()
@@ -147,7 +149,7 @@ def ajouterN(request):
         return redirect('affPr')      
     return render(request,'ajouter/classe.html',{'form': form,'titre':titre,'annee':annee} )
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def ajouterTF(request):
     titre="AJOUTER TYPE FORMATION"
     form = TypeFormationForm()
@@ -161,15 +163,13 @@ def ajouterTF(request):
         return redirect('affTF')      
     return render(request,'ajouter/ajouter.html',{'form': form,'titre':titre } )
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def getet(request):
     titre="AJOUTER APPRENANT SANS MATRICULE"
-    # aaa=AnneeScolaire.objects.all().last()
-    # aa=Classe.objects.filter(annee_scolaire_id=aaa)
     typef=TypeFormation.objects.all()
     return render(request,'getet.html',{'typef':typef,'titre':titre})
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def getet1(request):
     titre="AJOUTER APPRENANT SANS MATRICULE"
     typef=request.GET['typef']
@@ -179,7 +179,7 @@ def getet1(request):
     return render(request,'getet1.html',{'aa':aa,'typef':typef,'titre':titre})
 
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def ajouterE(request):
     titre="AJOUTER APPRENANT SANS MATRICULE"
     form = EtudiantForm()
@@ -268,13 +268,13 @@ def ajouterE(request):
         return redirect('affE')
     return render(request,'ajouter/etudiant.html',{'form': form,'titre':titre,'b':b,'count':maxa,'num':num})
 
-@staff_member_required(login_url="erreur") 
+@staff_member_required(login_url="connexion")
 def getetudiant(request):
     aaa=AnneeScolaire.objects.all().last()
     aa=Classe.objects.filter(annee_scolaire_id=aaa)
     return render(request,'getetudiant.html',{'aa':aa})
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def ajoutETM(request):
     matri=request.GET.get('matricule')
     ancienC=request.GET.get('classeA')
@@ -345,7 +345,7 @@ def ajoutETM(request):
 
 
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def ajouterP(request):
     titre="AJOUTER PERIODE"
     form = PeriodeForm()
@@ -359,7 +359,7 @@ def ajouterP(request):
         return redirect('affP')      
     return render(request,'ajouter/ajouter.html',{'form': form,'titre':titre } )
 
-@staff_member_required(login_url="erreur") 
+@staff_member_required(login_url="connexion") 
 def ajouterTM(request):
     titre="AJOUTER TYPE MATIERE"
     form = TypeMatiereForm()
@@ -373,7 +373,7 @@ def ajouterTM(request):
         return redirect('affTM')      
     return render(request,'ajouter/ajouter.html',{'form': form,'titre':titre } )
 
-@staff_member_required(login_url="erreur") 
+@staff_member_required(login_url="connexion")
 def ajouterM(request):
     titre="AJOUTER COEFFICIENT MATIERE"
     form = MatiereForm()
@@ -387,7 +387,7 @@ def ajouterM(request):
             messages.error(request, "Verifier les champs")
     return render(request,'ajouter/ajouter.html',{'form': form,'titre':titre } )
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def ajoutM(request):
     titre="AJOUTER MATIERE"
     form = MatForm()
@@ -401,7 +401,7 @@ def ajoutM(request):
             messages.error(request, "Verifier les champs")
     return render(request,'ajouter/ajouter.html',{'form': form,'titre':titre } )
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def ajoutProv(request):
     titre="AJOUTER PROVISEUR"
     form = ProvForm()
@@ -415,7 +415,7 @@ def ajoutProv(request):
             messages.error(request, "Verifier les champs")
     return render(request,'ajouter/ajouter.html',{'form': form,'titre':titre } )
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def ajoutCenseur(request):
     titre="AJOUTER CENSEUR"
     form = CenseurForm()
@@ -429,7 +429,7 @@ def ajoutCenseur(request):
             messages.error(request, "Verifier les champs")
     return render(request,'ajouter/ajouter.html',{'form': form,'titre':titre } )
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def ajoutSg(request):
     titre="AJOUTER SURVEILLANT GENERAL"
     form = SgForm()
@@ -443,7 +443,7 @@ def ajoutSg(request):
             messages.error(request, "Verifier les champs")
     return render(request,'ajouter/ajouter.html',{'form': form,'titre':titre } )
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def ajoutChef(request):
     titre="AJOUTER CHEF DE TRAVAUX"
     form = ChefForm()
@@ -458,7 +458,7 @@ def ajoutChef(request):
     return render(request,'ajouter/ajouter.html',{'form': form,'titre':titre } )
 #---------------------------------affichage--------------------------------------------
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion")
 def afficheEtudiant(request):
     etudiants=Etudiant.objects.all().order_by('-id')
     recherche=request.GET.get('serch')
@@ -513,7 +513,7 @@ def afficheEtudiant(request):
         pass
     return render(request,'afficher/etudiant.html',{'etudiants':etudiants})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion")
 def afficheSect(request):
     secteurs=Secteur.objects.all()
     recherche=request.GET.get('serch')
@@ -524,7 +524,7 @@ def afficheSect(request):
     secteurs = pagination.get_page(page)
     return render(request,'afficher/secteur.html', {'secteurs':secteurs})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion")
 def afficheRes(request):
     responsables=Responsable.objects.all()
     recherche=request.GET.get('serch')
@@ -535,7 +535,7 @@ def afficheRes(request):
     responsables = pagination.get_page(page)
     return render(request,'afficher/responsable.html', {'responsables':responsables})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion")
 def affiM(request):
     matieres=Matier.objects.all()
     recherche=request.GET.get('serch')
@@ -546,7 +546,7 @@ def affiM(request):
     matieres = pagination.get_page(page)
     return render(request,'afficher/matieres.html', {'matieres':matieres})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion")
 def afficheFiliere(request):
     filieres=Filiere.objects.all()
     recherche=request.GET.get('serch')
@@ -557,7 +557,7 @@ def afficheFiliere(request):
     filieres = pagination.get_page(page)
     return render(request,'afficher/filiere.html', {'filieres':filieres})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion") 
 def afficheAnneeSco(request):
     annee=AnneeScolaire.objects.all()
     recherche=request.GET.get('serch')
@@ -568,7 +568,7 @@ def afficheAnneeSco(request):
     annee = pagination.get_page(page)
     return render(request,'afficher/annee.html', {'annee':annee})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion") 
 def affichePromotion(request):
     classes=Classe.objects.all()
     recherche=request.GET.get('serch')
@@ -579,7 +579,7 @@ def affichePromotion(request):
     classes = pagination.get_page(page)
     return render(request,'afficher/promotion.html', {'promotions':classes})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion")
 def affichePeriode(request):
     periodes=Periode.objects.all()
     recherche=request.GET.get('serch')
@@ -590,7 +590,7 @@ def affichePeriode(request):
     periodes = pagination.get_page(page)
     return render(request,'afficher/periode.html', {'periodes':periodes})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion") 
 def afficheTypeM(request):
     types=TypeMatiere.objects.all()
     recherche=request.GET.get('serch')
@@ -601,7 +601,7 @@ def afficheTypeM(request):
     types = pagination.get_page(page)
     return render(request,'afficher/typematiere.html', {'types':types})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion") 
 def afficheMatiere(request):
     matieres=Matiere.objects.all()
     recherche=request.GET.get('serch')
@@ -612,7 +612,7 @@ def afficheMatiere(request):
     matieres = pagination.get_page(page)
     return render(request,'afficher/matiere.html', {'matieres':matieres})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion") 
 def afficheformation(request):
     formations=TypeFormation.objects.all()
     recherche=request.GET.get('serch')
@@ -623,7 +623,7 @@ def afficheformation(request):
     formations = pagination.get_page(page)
     return render(request,'afficher/typeformation.html', {'formations':formations})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion")
 def afficheprov(request):
     proviseurs=Proviseur.objects.all()
     recherche=request.GET.get('serch')
@@ -634,7 +634,7 @@ def afficheprov(request):
     proviseurs = pagination.get_page(page)
     return render(request,'afficher/prov.html',{'proviseurs':proviseurs})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion")
 def affichecenseur(request):
     censeurs=Censeur.objects.all()
     recherche=request.GET.get('serch')
@@ -645,7 +645,7 @@ def affichecenseur(request):
     censeurs = pagination.get_page(page)
     return render(request,'afficher/censeur.html',{'censeurs':censeurs})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion")
 def afficheSg(request):
     surveillants=SG.objects.all()
     recherche=request.GET.get('serch')
@@ -656,7 +656,7 @@ def afficheSg(request):
     surveillants = pagination.get_page(page)
     return render(request,'afficher/sg.html',{'surveillants':surveillants})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion")
 def afficheChef(request):
     chefs=ChefDeTravaux.objects.all()
     recherche=request.GET.get('serch')
@@ -668,7 +668,7 @@ def afficheChef(request):
     return render(request,'afficher/chef.html',{'chefs':chefs})
 
 #--------------------------------modification----------------------------------------------
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifSecteur(request,myid):
     titre="MODIFIER SECTEUR"
     form = Secteur.objects.get(codeSect=myid)
@@ -679,7 +679,7 @@ def modifSecteur(request,myid):
     context = {'form':form,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifFiliere(request,myid):
     titre="MODIFIER FILIERE"
     form = Filiere.objects.get(codeF=myid)
@@ -690,7 +690,7 @@ def modifFiliere(request,myid):
     context = {'form':form,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifAnnee(request,myid):
     titre="MODIFIER ANNEE SCOLAIRE"
     form = AnneeScolaire.objects.get(codeAS=myid)
@@ -701,7 +701,7 @@ def modifAnnee(request,myid):
     context = {'form':form,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifPeriode(request,myid):
     titre="MODIFIER PERIODE"
     form = Periode.objects.get(codeP=myid)
@@ -712,7 +712,7 @@ def modifPeriode(request,myid):
     context = {'form':form,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifTypeM(request,myid):
     titre="MODIFIER TYPE MATIERE"
     form = TypeMatiere.objects.get(id=myid)
@@ -723,7 +723,7 @@ def modifTypeM(request,myid):
     context = {'form':form,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifTypeF(request,myid):
     titre="MODIFIER TYPE FORMATION"
     form = TypeFormation.objects.get(codeTF=myid)
@@ -734,7 +734,7 @@ def modifTypeF(request,myid):
     context = {'form':form,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifMatiere(request,myid):
     titre="MODIFIER MATIERE"
     form = Matier.objects.get(id=myid)
@@ -745,7 +745,7 @@ def modifMatiere(request,myid):
     context = {'form':form,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifMatiereC(request,myid):
     titre="MODIFIER COEFFICIENT MATIERE"
     form = Matiere.objects.get(id=myid)
@@ -756,7 +756,7 @@ def modifMatiereC(request,myid):
     context = {'form':form,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifResponsable(request,myid):
     titre="MODIFIER RESPONSABLE CLASSE"
     form = Responsable.objects.get(id=myid)
@@ -767,7 +767,7 @@ def modifResponsable(request,myid):
     context = {'form':form,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifClasse(request,myid):
     titre="MODIFIER CLASSE"
     form = Classe.objects.get(codeC=myid)
@@ -778,7 +778,7 @@ def modifClasse(request,myid):
     context = {'form':form,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifApprenant(request,myid):
     titre="MODIFIER APPRENANT"
     form = Etudiant.objects.get(id=myid)
@@ -789,7 +789,7 @@ def modifApprenant(request,myid):
     context = {'form':form,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifAss(request,myid,id,periode):
     titre="MODIFIER ASSUIDITE"
     etudiants=Etudiant.objects.filter(classe_id=id)
@@ -802,7 +802,7 @@ def modifAss(request,myid,id,periode):
     context = {'form':form,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifProv(request,myid):
     titre="MODIFIER PROVISEUR"
     form = Proviseur.objects.get(id=myid)
@@ -813,7 +813,7 @@ def modifProv(request,myid):
     context = {'form':form,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifCenseur(request,myid):
     titre="MODIFIER CENSEUR"
     form = Censeur.objects.get(id=myid)
@@ -824,7 +824,7 @@ def modifCenseur(request,myid):
     context = {'form':form,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifChef(request,myid):
     titre="MODIFIER CHEF DE TRAVAUX"
     form = ChefDeTravaux.objects.get(id=myid)
@@ -835,7 +835,7 @@ def modifChef(request,myid):
     context = {'form':form,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def modifSurveillantG(request,myid):
     titre="MODIFIER SURVEILLANT GENERAL"
     form = SG.objects.get(id=myid)
@@ -859,7 +859,7 @@ def fichenote(request):
     return render(request,'note.html',{'note':note,'titre':titre,'annee':annee})
 
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def ajoutFN(request):
     titre="CREER FICHE DE NOTE"
     annee=AnneeScolaire.objects.all().last()
@@ -867,7 +867,7 @@ def ajoutFN(request):
     prom=Classe.objects.filter(annee_scolaire_id=ann)
     return render(request,'fiche.html',{'titre':titre,'annee':annee,'prom':prom})
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def ajoutFN1(request):
     titre="CREER FICHE DE NOTE"
     anneesc=request.GET.get('annee')
@@ -934,14 +934,14 @@ def modifierNote(request,id,myid):
     context = {'form':contenir,'titre':titre}
     return render(request,'ajouter/ajouter.html',context)
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def bull(request):
     titre="AFFICHER BULLETIN"
     typef=TypeFormation.objects.all()
     filiere=Filiere.objects.all()
     return render(request,'bull.html',{'titre':titre,'typef':typef,'filiere':filiere})
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def getbull(request):
     annee=request.GET.get('annee')
     typef=request.GET.get('typef')
@@ -949,14 +949,14 @@ def getbull(request):
     classe=Classe.objects.filter(filiere_id=filiere,annee_scolaire_id__annee_scolaire=annee,type_formation_id=typef)
     return render(request,'getbulletin.html',{'classe':classe})
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def bulle(request):
     clas=request.GET.get('classe')
     etudiants=Etudiant.objects.filter(classe_id=clas)
     periode=Periode.objects.all()
     return render(request,'bulle.html',{'etudiants':etudiants,'periode':periode,'classe':clas})
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def bulletin(request):
     classe=request.GET.get('classe')
     periode=request.GET.get('periode')
@@ -1026,14 +1026,14 @@ def bulletin(request):
     rang=moyennes_avec_coeff.index(tot)+1 
     return render(request,'bulletin.html',{'cl':klasy,'per':per,'etudiant':etudian,'id':abs,'nbet':nbet,'bul':bulletin,'moy':moy,'coef':coef,'tot':tot,'conduite':conduite,'apreciation':apreciation,'rang':rang,'periode':periode})
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def classe(request):
     annee=AnneeScolaire.objects.all().last()
     periode=Periode.objects.all()
     classe=Classe.objects.filter(annee_scolaire_id=annee)
     return render(request,'et.html',{'classe':classe,'periode':periode,'annee':annee})
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def absence(request):
     titre="ASSUIDITE"
     periode=request.GET.get('periode')
@@ -1059,7 +1059,7 @@ def absence(request):
     
     return render(request,'absence.html',{'titre':titre,'etudiants':etudiants,'tabl':table,'clas':clas})
 
-@login_required(login_url='connexion')
+@staff_member_required(login_url="connexion")
 def pdfbulletin(request):
     classe=request.GET.get('classe')
     periode=request.GET.get('periode')
@@ -1145,17 +1145,17 @@ def pdfbulletin(request):
     
     return response
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion")
 def listeparclasse(request):
     return render(request,'afficher/etudiantparclasse.html')
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion")
 def listeparclasse1(request):
     annee=request.GET.get('annee')
     classes=Classe.objects.filter(annee_scolaire_id__annee_scolaire=annee)
     return render(request,'afficher/etudiantparclasse1.html',{'classes':classes})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion")
 def listeparclasse2(request):
     classe=request.GET.get('classe')
     apprenants=Etudiant.objects.filter(classe_id=classe)
@@ -1163,12 +1163,12 @@ def listeparclasse2(request):
     garçons=Etudiant.objects.filter(classe_id=classe,sexe="Masculin").count()
     return render(request,'afficher/etudiantparclasse2.html',{'apprenants':apprenants,'classe':classe,'filles':filles,'garçons':garçons})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion") 
 def detailEt(request,myid):
     apprenant = Etudiant.objects.get(id=myid)
     return render(request,'afficher/detail.html',{'apprenant':apprenant})
 
-@login_required(login_url='connexion') 
+@staff_member_required(login_url="connexion") 
 def listePDF(request):
     classe=request.GET.get('classe')
     apprenants=Etudiant.objects.filter(classe_id=classe)
@@ -1185,20 +1185,20 @@ def listePDF(request):
         return HttpResponse("erreur")
     
     return response
-    
-@staff_member_required(login_url="erreur")
+   
+@staff_member_required(login_url="connexion")
 def bullannuelle(request):
     typef=TypeFormation.objects.all()
     return render(request,'bullannuel.html',{'typef':typef})
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def bullannuelle1(request):
     annee=request.GET['annee']
     typ=request.GET['type_formation']
     classes=Classe.objects.filter(annee_scolaire_id__annee_scolaire=annee,type_formation_id=typ)
     return render(request,'bullannuel1.html',{'classes':classes,'annee':annee,'typef':typ})
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def bullannuelle2(request):
     classe=request.GET['classe']
     annee=request.GET['anne']
@@ -1206,7 +1206,7 @@ def bullannuelle2(request):
     etudiants=Etudiant.objects.filter(classe_id__classe=classe)
     return render(request,'bullannuel2.html',{'etudiants':etudiants,'classe':classe,'annee':annee,'typefo':typefo})
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def bullannuelle3(request):
     classe=request.GET['classy']
     classy=Classe.objects.filter(classe=classe)
@@ -1283,29 +1283,26 @@ def bullannuelle3(request):
     
     return render(request,'bullannuel3.html',{'annee':annee,'tformation':tformation,'classe':classe,'classy':classy,'apprenant':apprenant,'bulletin':bulletin,'bul':bul,'moys':moys,'nbs':ma,'absenc':absenc,'absence':absence,'etu_count':etu_count})
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def fiche_ren(request):
     types=TypeFormation.objects.all()
     return render(request,'afficher/fiche_ren.html',{'types':types})
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def fiche_ren1(request):
     typef=request.GET['type_formation']
     matr=request.GET['matricule']
     apprenant=Etudiant.objects.filter(matricule=matr,classe_id__type_formation_id=typef).last()
     return render(request,'afficher/fiche_ren1.html',{'apprenant':apprenant})
 
-@login_required(login_url='connexion')
-def erreur(request):
-    return render(request,'erreur.html')
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def certificat(request):
     titre="CERTIFICAT DE SCOLARITE"
     typef=TypeFormation.objects.all()
     return render(request,'certificat.html',{'titre':titre,'typef':typef})
 
-@staff_member_required(login_url="erreur")
+@staff_member_required(login_url="connexion")
 def certificat1(request):
     titre="CERTIFICAT DE SCOLARITE"
     matricule=request.GET['matricule']
@@ -1330,3 +1327,25 @@ def certificat1(request):
         return HttpResponse("erreur")
     
     return response
+
+@staff_member_required(login_url="connexion")
+def gerermat(request):
+    titre="GERER MATIERE"
+    return render(request,'matiere.html',{'titre':titre})
+
+@staff_member_required(login_url="connexion")
+def gererevaluation(request):
+    titre = "EVALUATION"
+    return render(request,'evaluation.html',{'titre':titre})
+
+@staff_member_required(login_url="connexion")
+def gererstaff(request):
+    titre = "STAFF"
+    return render(request,'staff.html',{'titre':titre})
+
+# from .models import Etudiant 
+
+# def afficherfiliere(request):
+#     apprenants=Etudiant.objects.all()[:30]
+#     return render(request,'afficher/apprenant.html',{'apprenants':apprenants})
+

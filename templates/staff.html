@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="text-center">
+    <h1 class="text-danger">{{titre}}</h1>
+</div>
+<br><br><br>
+<div class="d-flex justify-content-between">
+    <a href="{% url 'affprov' %}" class="btn btn-info p-3" style="font-size: 30px;">Proviseur</a>
+    <a href="{% url 'affcenseur' %}" class="btn btn-success p-3" style="font-size: 30px;">Censeur</a>
+</div>
+<br><br><br><br>
+<!-- <div class="text-center">
+    {% load static %}
+    <img src="{% static 'images/logo/logo.jpg' %}" alt="">
+</div> -->
+<br><br><br><br>
+<div class="d-flex justify-content-between">
+    <a href="{% url 'affchef' %}" class="btn btn-warning p-3" style="font-size: 30px;">Chef de Travaux</a>
+    <a href="{% url 'affsg' %}" class="btn btn-dark p-3" style="font-size: 30px;">Surveillant General</a>
+</div>
+{% endblock content %}
+    

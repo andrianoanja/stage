@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import login,authenticate
 from django.contrib import messages
-from utilisateur.forms import InscriptionForm
+from utilisateur.forms import InscriptionForm, ModifierProfileForm
 from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.models import  Permission
 from django.contrib.admin.views.decorators import staff_member_required
@@ -53,3 +53,19 @@ def profile(request):
 def listeUtilisateur(request):
     utilisateurs=Utilisateur.objects.all()
     return render(request,'auth/liste.html',{'utilisateurs':utilisateurs})
+
+@login_required(login_url='connexion')
+def modifier_profile(request,myid):
+    titre="MODIFIER PROFILE"
+    form = Utilisateur.objects.get(id=myid)
+    form = ModifierProfileForm(request.POST or None,instance=form)
+    if form.is_valid():
+        form.save()
+        return redirect('utlisateur')
+    return render(request,'auth/modifier.html',{'titre':titre,'form':form})
+
+@staff_member_required(login_url='connexion')
+def voirPro(request,myid):
+    form = Utilisateur.objects.get(id=myid)
+    
+    return render(request,'auth/profile.html')

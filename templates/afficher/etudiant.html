@@ -5,7 +5,7 @@
 
 <div class="col-sm-12">
     <div class="text-center">
-        <h1 class="text-success"> LISTE DES APPRENANTS</h1>
+        <h1 class="text-danger">APPRENANTS</h1>
     </div>
     {% include 'message.html' %}
     <div class="container-fluid">
@@ -17,21 +17,21 @@
                 <p>Aucune donnée à afficher.</p>
                 {% endif %}
             </div>
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
                 {% if graphic1 %}
                 <img src="data:image/png;base64,{{ graphic1 }}" class="img-fluid"/>
                 {% else %}
                 <p>Aucune donnée à afficher.</p>
                 {% endif %}
-            </div>
+            </div> -->
         </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-6">
             <div class="card-body">
 
-                <a href="{% url 'classapr' %}" class="btn btn-danger">Liste des apprenants par classe<i class=""></i></a>
+                <a href="{% url 'classapr' %}" class="btn btn-danger">Liste des apprenants par classe<i class=""></i></a> 
                 <a href="{% url 'fiche_ren' %}" class="btn btn-info">Fiche de Renseignements<i class=""></i></a>
             </div>
         </div>
@@ -45,8 +45,8 @@
                 </div>
             </div>
         </form>
-    </div>
-    <div class="table-responsive">
+    </div> -->
+    <!-- <div class="table-responsive">
         <table class="table table-bordered">
             <tr id="tete">
                 <th>Matricule</th>
@@ -73,9 +73,9 @@
             </tr>
             {% endfor %}
         </table>
-    </div>
+    </div> -->
 
-    <div class="row mt-3">
+    <!-- <div class="row mt-3">
         <div class="col-md-3 offset-md-4">
             <ul class="pagination">
                 {% if etudiants.has_previous %}
@@ -97,5 +97,13 @@
 
     </div>
 
+</div> -->
+<br><br><br>
+<div class="d-flex justify-content-between">
+<a href="{% url 'sansM' %}" class="btn btn-primary">Inscription</a>
+<a href="{% url 'getE' %}" class="btn btn-warning">Réinscription</a>
+<a href="{% url 'classapr' %}" class="btn btn-success">Liste apprenants par classe</a>
+<a href="{% url 'certificat' %}" class="btn btn-info">certificat de scolarité</a>
+<a href="{% url 'fiche_ren' %}" class="btn btn-danger">Fiche de renseignements</a>
 </div>
 {% endblock %}

@@ -9,24 +9,24 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card-body">
-   
-    </div>
-    </div>
-    <form action="" class="col-md-6">
-        <div class="card-body row  ">
-            <div class="col">
-               <input type="serch" class="form-control form-control-borderless" name="serch" >
+                <a href="{% url 'affTF' %}" class="btn btn-primary">Ajouter nouveau <i class="fa fa-plus"></i></a>
+            </div>
         </div>
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary"> <i class="fa fa-search"></i></button>
-        </div>
-        </div>
-    </form>
+        <form action="" class="col-md-6">
+            <div class="card-body row  ">
+                <div class="col">
+                    <input type="serch" class="form-control form-control-borderless" name="serch">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary"> <i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </form>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered">
             <tr id="tete">
-                <th>Code  Type Formation</th>
+                <th>Code Type Formation</th>
                 <th>Type Formation</th>
                 <th>Actions</th>
             </tr>
@@ -36,10 +36,10 @@
                 <td>{{x.type_formation}}</td>
                 <td>
                     <div class="d-flex justify-content-around">
-                        
+
                         <a class="save btn btn-info" href="{% url 'modiftypef' x.codeTF %}"> <i class="fa fa-edit"></i>
                             Modifier</a>
-                       
+
                     </div>
                 </td>
             </tr>

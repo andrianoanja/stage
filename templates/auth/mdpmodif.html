@@ -1,8 +1,18 @@
 {% extends 'base.html' %}
 
+{% if user.is_staff  %}
+    
 {% block content %}
 <script>
     alert("Modification avec succes")
     document.location ='/'
 </script>
 {% endblock content %}
+{% else %}
+{% block content1 %}
+<script>
+    alert("Modification avec succes")
+    document.location ='/note/'
+</script>
+{% endblock content1 %}
+{% endif %}

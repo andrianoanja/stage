@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="text-center">
+    <h1 class="text-danger">{{titre}}</h1>
+</div>
+<br><br><br><br>
+<div class="text-center">
+    <a href="{% url 'note' %}" class="btn btn-outline-primary p-3" style="font-size: 30px;">Fiche de notes</i></a><br><br><br>
+    <a href="{% url 'bull' %}" class="btn btn-outline-warning p-3" style="font-size: 30px;">Bulletin Par Periode</a><br><br><br>
+    <a href="{% url 'bullann' %}" class="btn btn-outline-success p-3" style="font-size: 30px;">Bulletin Annuelle</a>
+</div>
+{% endblock content %}

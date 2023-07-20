@@ -9,19 +9,19 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card-body">
-   
-    </div>
-    </div>
-    <form action="" class="col-md-6">
-        <div class="card-body row  ">
-            <div class="col">
-               <input type="serch" class="form-control form-control-borderless" name="serch" >
+                <a href="{% url 'ajoutTM' %}" class="btn btn-primary">Ajouter nouveau <i class="fa fa-plus"></i></a>
+            </div>
         </div>
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary"> <i class="fa fa-search"></i></button>
-        </div>
-        </div>
-    </form>
+        <form action="" class="col-md-6">
+            <div class="card-body row  ">
+                <div class="col">
+                    <input type="serch" class="form-control form-control-borderless" name="serch">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary"> <i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </form>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -36,10 +36,10 @@
                 <td>{{x.type_matiere}}</td>
                 <td>
                     <div class="d-flex justify-content-around">
-                        
+
                         <a class="save btn btn-info" href="{% url 'modiftypem' x.id %}"> <i class="fa fa-edit"></i>
                             Modifier</a>
-                        
+
                     </div>
                 </td>
             </tr>

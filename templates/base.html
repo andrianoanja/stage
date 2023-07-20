@@ -1,8 +1,9 @@
 {% load static %}
-{% if user.is_staff %}  
+{% if user.is_staff %}
 <!DOCTYPE html>
 <html lang="fr">
 {% load static %}
+
 <head>
    <!-- basic -->
    <meta charset="utf-8">
@@ -31,7 +32,7 @@
 
 </head>
 
- 
+
 <body class="dashboard dashboard_1">
    <div class="full_container">
       <div class="inner_container">
@@ -47,7 +48,8 @@
                <div class="sidebar_user_info">
                   <div class="icon_setting"></div>
                   <div class="user_profle_side">
-                     <div class="user_img"><a href="{% url 'profile' %}"><img class="img-responsive" src="{{user.profile.url}}" alt="#" /></a>
+                     <div class="user_img"><a href="{% url 'profile' %}"><img class="img-responsive"
+                              src="{{user.profile.url}}" alt="#" /></a>
                      </div>
                      <div class="user_info">
                         <h6>{{user.username}}</h6>
@@ -57,130 +59,56 @@
                </div>
             </div>
             <div class="sidebar_blog_2">
-               <h4>General</h4>
+               <h4>LTPGC MAHAMASINA</h4>
                <ul class="list-unstyled components">
                   <li><a href="{% url 'index' %}"><i class="fa fa-dashboard"></i> <span>Tableau de bord</span></a></li>
-                 
+
                   <li>
-                     <a href="#secteur" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                           class="fa fa-diamond "></i> <span>Secteur</span></a>
-                     <ul class="collapse list-unstyled" id="secteur">
-                        <li><a href="{% url 'ajoutsect' %}">> <span>Ajouter Secteur</span></a></li>
-                        <li><a href="{% url 'affSect' %}">> <span>Gerer Secteur</span></a></li>
-                     </ul>
+                     <a href="{% url 'affSect' %}"><i class="fa fa-cubes "></i> <span>Secteur</span></a>
                   </li>
                   <li>
-                     <a href="#filiere" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                           class="fa fa-diamond "></i> <span>Filière</span></a>
-                     <ul class="collapse list-unstyled" id="filiere">
-                        <li><a href="{% url 'ajoutF' %}">> <span>Ajouter Filière</span></a></li>
-                        <li><a href="{% url 'affF' %}">> <span>Gerer Filière</span></a></li>
-                     </ul>
+                     <a href="{% url 'affF' %}"><i class="fa fa-graduation-cap "></i> <span>Filière</span></a>
                   </li>
                   <li>
-                     <a href="#annee" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                           class="fa fa-diamond "></i> <span>Année Scolaire</span></a>
-                     <ul class="collapse list-unstyled" id="annee">
-                        <li><a href="{% url 'ajoutAS' %}">> <span>Ajouter Année Scolaire</span></a></li>
-                        <li><a href="{% url 'affAS' %}">> <span>Gerer Année Scolaire</span></a></li>
-                     </ul>
+                     <a href="{% url 'affAS' %}"><i class="fa fa-calendar "></i> <span>Année Scolaire</span></a>
                   </li>
                   <li>
-                     <a href="#periode" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                           class="fa fa-diamond "></i> <span>Periode</span></a>
-                     <ul class="collapse list-unstyled" id="periode">
-                        <li><a href="{% url 'ajoutP' %}">> <span>Ajouter Periode</span></a></li>
-                        <li><a href="{% url 'affP' %}">> <span>Gerer Periode</span></a></li>
-                     </ul>
-                  </li>
-                     <li>
-                        <a href="#typeF" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                              class="fa fa-diamond "></i> <span>Type Formation</span></a>
-                        <ul class="collapse list-unstyled" id="typeF">
-                           <li><a href="{% url 'ajoutTF' %}">> <span>Ajouter Type Formation</span></a></li>
-                           <li><a href="{% url 'affTF' %}">> <span>Gerer Type Formation</span></a></li>
-                        </ul>
-                     </li>
-                     <li>
-                     <a href="#tmat" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                           class="fa fa-diamond "></i> <span>Type de Matière</span></a>
-                     <ul class="collapse list-unstyled" id="tmat">
-                        <li><a href="{% url 'ajoutTM' %}">> <span>Ajouter Type de Matière</span></a></li>
-                        <li><a href="{% url 'affTM' %}">> <span>Gerer Type de Matière</span></a></li>
-                     </ul>
+                     <a href="{% url 'affP' %}"><i class="fa fa-calendar-plus-o "></i> <span>Periode</span></a>
                   </li>
                   <li>
-                     <a href="#matiere" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                           class="fa fa-diamond "></i> <span>Matière</span></a>
-                     <ul class="collapse list-unstyled" id="matiere">
-                        <li><a href="{% url 'ajoutMat' %}">> <span>Ajouter  Matière</span></a></li>
-                        <li><a href="{% url 'ajoutM' %}">> <span>Ajouter Coeficiant de Matière</span></a></li>
-                        <li><a href="{% url 'affM' %}">> <span>Gerer coef Matière et utilsateur edité note</span></a></li>
-                        <li><a href="{% url 'affMat' %}">> <span>Gerer Matière</span></a></li>
-                     </ul>
-                  </li>
-               
-                  <li>
-                     <a href="#responsable" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                           class="fa fa-diamond "></i> <span>Responsable de Classe</span></a>
-                     <ul class="collapse list-unstyled" id="responsable">
-                        <li><a href="{% url 'ajoutRes' %}">> <span>Ajouter responsable</span></a></li>
-                        <li><a href="{% url 'affResp' %}">> <span>Gerer responsable</span></a></li>
-                     </ul>
+                     <a href="{% url 'affTF' %}"><i class="fa fa-sitemap "></i> <span>Type Formation</span></a>
                   </li>
                   <li>
-                     <a href="#niveau" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                           class="fa fa-diamond "></i> <span>Classe</span></a>
-                     <ul class="collapse list-unstyled" id="niveau">
-                        <li><a href="{% url 'ajoutN' %}">> <span>Ajouter Classe</span></a></li>
-                        <li><a href="{% url 'affPr' %}">> <span>Gerer Classe</span></a></li>
-                     </ul>
+                     <a href="{% url 'affTM' %}"><i class="fa fa-align-center "></i> <span>Type de Matière</span></a>
                   </li>
                   <li>
-                     <a href="#etudiant" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                           class="fa fa-users"></i> <span>Apprenant</span></a>
-                     <ul class="collapse list-unstyled" id="etudiant">
-                        <li><a href="{% url 'sansM' %}">> <span>Ajouter Apprenant Sans Matricule</span></a></li>
-                        <li><a href="{% url 'getE' %}">> <span>Ajouter Apprenant Avec Matricule</span></a></li>
-                        <li><a href="{% url 'affE' %}">> <span>Gerer Apprenant</span></a></li>
-                        <li><a href="{% url 'certificat' %}">> <span>Certificat de scolarité</span></a></li>
-                     </ul>
+                     <a href="{% url 'gerer_mat' %}"><i class="fa fa-ticket "></i> <span>Matière</span></a>
                   </li>
                   <li>
-                     <a href="#note" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-diamond "></i>
-                            <span>Note</span></a>
-                     <ul class="collapse list-unstyled" id="note">
-                        <li><a href="{% url 'note' %}">> <span>Gerer Note</span></a></li>
-                        <li><a href="{% url 'bull' %}">> <span>Afficher bulletin par periode</span></a></li>
-                        <li><a href="{% url 'bullann' %}">> <span>Afficher bulletin Annuelle</span></a></li>
-                     </ul>
+                     <a href="{% url 'affResp' %}"><i class="fa fa-user-secret "></i> <span>Responsable de Classe</span></a>
                   </li>
                   <li>
-                     <a href="#abs" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-diamond "></i>
-                            <span>Assiduité</span></a>
-                     <ul class="collapse list-unstyled" id="abs">
-                        <li><a href="{% url 'classe' %}">> <span>Gerer Assiduité des apprenants</span></a></li>
-                        <!-- <li><a href="">> <span>Afficher Absence</span></a></li> -->
-                     </ul>
+                     <a href="{% url 'affPr' %}"><i class="fa fa-university "></i> <span>Classe</span></a>
                   </li>
                   <li>
-                     <a href="#autre" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-diamond "></i>
-                            <span>Autres</span></a>
-                     <ul class="collapse list-unstyled" id="autre">
-                        <li><a href="{% url 'affprov' %}">> <span>Proviseur</span></a></li>
-                        <li><a href="{% url 'affcenseur' %}">> <span>Censeur</span></a></li>
-                        <li><a href="{% url 'affchef' %}">> <span>Chef de Travaux</span></a></li>
-                        <li><a href="{% url 'affsg' %}">> <span>Surveillant General</span></a></li>
-                     </ul>
+                     <a href="{% url 'affE' %}"><i class="fa fa-users"></i> <span>Apprenant</span></a>
                   </li>
-                  <li><a href="#parametre" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-cog yellow_color"></i> <span>Paramètre</span></a>
-                     <ul class="collapse list-unstyled" id="parametre">
-                       
-                        <li><a href="{% url 'password-change' %}">> <span>Changer le Mot de passe</span></a></li>
-                        <li><a href="{% url 'utlisateur' %}">> <span>Liste utilisateurs</span></a></li>
-                     </ul>
+                  <li>
+                     <a href="{% url 'gerer_evalu' %}"><i class="fa fa-sort-numeric-desc "></i><span>Evaluation</span></a>
                   </li>
-                 
+                  <li>
+                     <a href="{% url 'classe' %}"><i class="fa fa-clock-o "></i><span>Assiduité des
+                           apprenants</span></a>
+                  </li>
+                  <li>
+                     <a href="{% url 'gerer_staff' %}"><i class="fa fa-user-plus "></i><span>STAFF</span></a>
+                  </li>
+                  <li>
+                     <a href="{% url 'utlisateur' %}"><i class="fa fa-user"></i> <span>Gerer Utilisateurs</span></a>
+                  </li>
+                  <li>
+                     <a href="{% url 'deconnexion' %}"><i class="fa fa-sign-out red_color"></i> <span>Deconnecter</span></a>
+                  </li>
                </ul>
             </div>
          </nav>
@@ -206,12 +134,10 @@
                            <ul class="user_profile_dd">
                               <li>
                                  <a class="dropdown-toggle" data-toggle="dropdown"><img
-                                       class="img-responsive rounded-circle"
-                                       src="{{user.profile.url}}" alt="#" /><span
+                                       class="img-responsive rounded-circle" src="{{user.profile.url}}" alt="#" /><span
                                        class="name_user">{{user.username}}</span></a>
                                  <div class="dropdown-menu">
                                     <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
-                                    <a class="dropdown-item" href="">Paramètre</a>
                                     <a class="dropdown-item" href="{% url 'deconnexion' %}"><span>Deconnecter</span> <i
                                           class="fa fa-sign-out"></i></a>
                                  </div>
@@ -241,126 +167,129 @@
          </div>
       </div>
    </div>
-         <!-- jQuery -->
-         <script src="{% static 'js/jquery.min.js' %}"></script>
-         <script src="{% static 'js/popper.min.js' %}"></script>
-         <script src="{% static 'js/bootstrap.min.js' %}"></script>
-         <!-- wow animation -->
-         <script src="{% static 'js/animate.js' %}"></script>
-         <!-- select country -->
-         <script src="{% static 'js/bootstrap-select.js' %}"></script>
-         <!-- owl carousel -->
-         <script src="{% static 'js/owl.carousel.js' %}"></script>
-         <!-- nice scrollbar -->
-         <script src="{% static 'js/perfect-scrollbar.min.js' %}"></script>
-         <script>
-            var ps = new PerfectScrollbar('#sidebar');
+   <!-- jQuery -->
+   <script src="{% static 'js/jquery.min.js' %}"></script>
+   <script src="{% static 'js/popper.min.js' %}"></script>
+   <script src="{% static 'js/bootstrap.min.js' %}"></script>
+   <!-- wow animation -->
+   <script src="{% static 'js/animate.js' %}"></script>
+   <!-- select country -->
+   <script src="{% static 'js/bootstrap-select.js' %}"></script>
+   <!-- owl carousel -->
+   <script src="{% static 'js/owl.carousel.js' %}"></script>
+   <!-- nice scrollbar -->
+   <script src="{% static 'js/perfect-scrollbar.min.js' %}"></script>
+   <script>
+      var ps = new PerfectScrollbar('#sidebar');
 
-            $(document).ready(function () {
-            $("#phone").mask("999 99 999 99");
-        });
-         </script>
-         <!-- custom js -->
-         <script src="{% static 'js/custom.js' %}"></script>
-         <script src="{% static 'js/jquery.min.js' %}"></script>
-         <script src="{% static 'js/jquery.maskedinput.js' %}"></script>
-         <script src="{% static 'js/bootstrap.bundle.min1.js' %}"></script>
-</body>   
+      $(document).ready(function () {
+         $("#phone").mask("999 99 999 99");
+      });
+   </script>
+   <!-- custom js -->
+   <script src="{% static 'js/custom.js' %}"></script>
+   <script src="{% static 'js/jquery.min.js' %}"></script>
+   <script src="{% static 'js/jquery.maskedinput.js' %}"></script>
+   <script src="{% static 'js/bootstrap.bundle.min1.js' %}"></script>
+</body>
+
 </html>
-{% else  %}
+{% else %}
 {% load static %}
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="fr">
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>LTPGC Mahamasina</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-    <link rel="icon" href="{% static 'images/logo/aa.ico' %}" type="image/png" />
-    <!-- bootstrap css -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min1.css' %}" />
-    <!-- site css -->
-    <link rel="stylesheet" href="{% static 'css/style2.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/style3.css' %}" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+   <title>LTPGC Mahamasina</title>
+   <meta content="" name="description">
+   <meta content="" name="keywords">
+   <link rel="icon" href="{% static 'images/logo/aa.ico' %}" type="image/png" />
+   <!-- bootstrap css -->
+   <link rel="stylesheet" href="{% static 'css/bootstrap.min1.css' %}" />
+   <!-- site css -->
+   <link rel="stylesheet" href="{% static 'css/style2.css' %}" />
+   <link rel="stylesheet" href="{% static 'css/style3.css' %}" />
 </head>
+
 <body>
-    <header id="header" class="header fixed-top d-flex align-items-center">
-        <div class="d-flex align-items-center justify-content-between">
-          <a href="{% url 'note' %}">  <img src="{% static 'images/logo/logo.jpg' %}" alt=""></a>
-            
-        </div>
-        <nav class="header-nav ms-auto">
-            <ul class="d-flex align-items-center">
-                <li class="nav-item">
-                    <a class="nav-link nav-icon" data-bs-toggle="dropdown">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="badge bg-primary badge-number">0</span>
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
+   <header id="header" class="header fixed-top d-flex align-items-center">
+      <div class="d-flex align-items-center justify-content-between">
+         <a href="{% url 'note' %}"> <img src="{% static 'images/logo/logo.jpg' %}" alt=""></a>
 
-                    <a class="nav-link nav-icon" data-bs-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i>
-                        <span class="badge bg-success badge-number">0</span>
-                    </a>
-                </li>
-                <li class="nav-item dropdown pe-3">
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="" data-bs-toggle="dropdown">
-                        <img src="{{user.profile.url}}" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{user.username}}</span>
-                    </a><!-- End Profile Iamge Icon -->
+      </div>
+      <nav class="header-nav ms-auto">
+         <ul class="d-flex align-items-center">
+            <li class="nav-item">
+               <a class="nav-link nav-icon" data-bs-toggle="dropdown">
+                  <i class="fa fa-envelope-o"></i>
+                  <span class="badge bg-primary badge-number">0</span>
+               </a>
+            </li>
+            <li class="nav-item dropdown">
 
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                        <li class="dropdown-header">
-                            <h6>{{user.username}}</h6>
-                            <span>Enseignant</span>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+               <a class="nav-link nav-icon" data-bs-toggle="dropdown">
+                  <i class="fa fa-bell-o"></i>
+                  <span class="badge bg-success badge-number">0</span>
+               </a>
+            </li>
+            <li class="nav-item dropdown pe-3">
+               <a class="nav-link nav-profile d-flex align-items-center pe-0" href="" data-bs-toggle="dropdown">
+                  <img src="{{user.profile.url}}" alt="Profile" class="rounded-circle">
+                  <span class="d-none d-md-block dropdown-toggle ps-2">{{user.username}}</span>
+               </a><!-- End Profile Iamge Icon -->
 
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="{% url 'profile' %}">
-                                <i class="fa fa-user"></i>
-                                <span>Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="{% url 'password-change' %}">
-                                <i class="fa fa-gear"></i>
-                                <span>Changer Mot de passe</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="{% url 'deconnexion' %}">
-                                <i class="fa fa-sign-out"></i>
-                                <span>Deconnecter</span>
-                            </a>
-                        </li>
+               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                  <li class="dropdown-header">
+                     <h6>{{user.username}}</h6>
+                     <span>Enseignant</span>
+                  </li>
+                  <li>
+                     <hr class="dropdown-divider">
+                  </li>
 
-                    </ul>
-                </li>
+                  <li>
+                     <a class="dropdown-item d-flex align-items-center" href="{% url 'profile' %}">
+                        <i class="fa fa-user"></i>
+                        <span>Profile</span>
+                     </a>
+                  </li>
+                  <li>
+                     <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                     <a class="dropdown-item d-flex align-items-center" href="{% url 'password-change' %}">
+                        <i class="fa fa-gear"></i>
+                        <span>Changer Mot de passe</span>
+                     </a>
+                  </li>
+                  <li>
+                     <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                     <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                     <a class="dropdown-item d-flex align-items-center" href="{% url 'deconnexion' %}">
+                        <i class="fa fa-sign-out"></i>
+                        <span>Deconnecter</span>
+                     </a>
+                  </li>
 
-            </ul>
-        </nav>
-    </header>
-    <div class="container">
-        <main class="main" id="main">
-            {% block content1 %}
+               </ul>
+            </li>
 
-            {% endblock content1 %}
-        </main>
-    </div>
+         </ul>
+      </nav>
+   </header>
+   <div class="container">
+      <main class="main" id="main">
+         {% block content1 %}
+
+         {% endblock content1 %}
+      </main>
+   </div>
 </body>
 <script src="{% static 'js/bootstrap.bundle.min1.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>

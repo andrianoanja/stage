@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from andrana1 import settings
 from django.conf.urls.static import static
-from utilisateur.views import connexionView,inscriptionView, listeUtilisateur, profile
+from utilisateur.views import connexionView,inscriptionView, listeUtilisateur, modifier_profile, profile
 from web import views
 from django.contrib.auth import views as auth_views
 from utilisateur.forms import PasswordChangeForm
@@ -31,6 +31,7 @@ urlpatterns = [
     path('accounts/password-change/password-change-done', auth_views.PasswordChangeDoneView.as_view(template_name='auth/mdpmodif.html'), name="password-change-done"),
     path('profile/',profile,name="profile"),
     path('Utilisateur/',listeUtilisateur,name="utlisateur"),
+    path('modifierprofile?id=<int:myid>',modifier_profile ,name='modifprofile'),
     #--------------ajout---------------------------------
     path('ajoutsect',views.ajouterSect,name='ajoutsect'),
     path('ajoutfiliere',views.ajouterF,name='ajoutF'),
@@ -108,7 +109,10 @@ urlpatterns = [
     path('bulletin_annuelle3/',views.bullannuelle3,name="bullann3"),
     path('fiche_ren/',views.fiche_ren,name="fiche_ren"),
     path('fiche_ren1/',views.fiche_ren1,name="fiche_ren1"),
-    path('erreur/',views.erreur,name="erreur"),
     path('certificat/',views.certificat,name="certificat"),
     path('certificat1/',views.certificat1,name="certificat1"),
+    path('gerer/matiere/',views.gerermat,name="gerer_mat"),
+    path('gerer/note/',views.gererevaluation,name="gerer_evalu"),
+    path('gerer/staff/',views.gererstaff,name="gerer_staff"),
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

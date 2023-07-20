@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% if user.is_staff %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="text-danger">{{titre}}</h1>
+</div>
+<br><br>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <br><br>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Enregister</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+{% endblock %}
+{% else %}
+
+{% block content1 %}
+<div class="text-center">
+    <h1 class="text-danger">{{titre}}</h1>
+</div>
+<br><br>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <br><br>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Enregister</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+{% endblock  %}    
+
+{% endif %}
+    
